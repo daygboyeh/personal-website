@@ -37,3 +37,13 @@ Systems in Motion is visible directly in the page at #film, with a poster,
 native video controls, a Play film button, and an MP4 download. The hero,
 navigation, footer, and terminal reel command provide direct entry points.
 The responsive player is styled in film.css and controlled by reel.js.
+
+## Welcome motion
+The welcome screen automatically plays a silent 13.7-second highlights loop.
+It respects reduced-motion preferences and the page motion toggle, and pauses
+when offscreen, in a hidden tab, or while the full film plays. On small screens
+the preview appears directly below the name. The interactive console is in the
+Platform Lab section. Implementation: welcome.css and welcome.js.
+
+Regenerate the 720p, 30 fps preview with FFmpeg installed:
+    python3 tools/motion-film/make_welcome_preview.py --site-directory .
