@@ -55,7 +55,7 @@ function collectStar() {
   $('#screen-player').style.transform = motionPaused ? '' : `translateY(-${score % 2 ? 9 : 0}px) rotate(${score % 2 ? 30 : 0}deg)`;
   placeStar();
   if (score === 5) notify('Five services deployed. A small platform, up and running.');
-  if (score === 10) notify('Ten services deployed. Platform builder unlocked.');
+  if (score === 10) { notify('Ten services deployed. Platform builder unlocked.'); window.dispatchEvent(new CustomEvent('stamp', { detail: 'console' })); }
 }
 $('#screen-start').addEventListener('click', () => playing ? resetConsole() : startConsole());
 window.addEventListener('startconsole', startConsole);
@@ -81,50 +81,15 @@ world.addEventListener('keydown', event => {
   }
 });
 
-const story = $('#story');
-const universe = $('#idea-universe');
-const particles = Array.from({ length: 38 }, (_, index) => {
-  const particle = document.createElement('span'); particle.className = 'idea-particle';
-  const angle = index * 2.39996;
-  const radius = 45 + Math.sqrt(index / 38) * 160;
-  particle.dataset.x = String(Math.cos(angle) * radius);
-  particle.dataset.y = String(Math.sin(angle) * radius * 0.8);
-  particle.dataset.rotate = String(Math.sin(index) * 35);
-  universe.append(particle); return particle;
-});
-const chapters = [
-  ['It starts with', 'the architecture.', 'Networking, identity, storage, and security. Every piece has a place.'],
-  ['Connected into', 'a working platform.', 'Infrastructure as code. Repeatable releases. Services that work together.'],
-  ['Led with', 'people in mind.', 'Teams equipped to deliver. Customers with clarity. Platforms built to last.']
-];
-let chapter = -1;
+// Scroll progress bar across the top of the page.
 let scrollFrame = 0;
 function updateScroll() {
   scrollFrame = 0;
-  const bounds = story.getBoundingClientRect();
-  const progress = Math.max(0, Math.min(1, -bounds.top / Math.max(1, bounds.height - innerHeight)));
-  const activeChapter = motionPaused ? 2 : Math.min(2, Math.floor(progress * 3));
-  if (activeChapter !== chapter) {
-    chapter = activeChapter;
-    const [intro, title, description] = chapters[chapter];
-    const strong = document.createElement('strong'); strong.textContent = title;
-    $('#story-title').replaceChildren(document.createTextNode(intro), document.createElement('br'), strong);
-    $('#story-description').textContent = description;
-    document.querySelectorAll('.story-chapters span').forEach((item, index) => item.classList.toggle('active', index === chapter));
-    const mobileScale = innerWidth < 700 ? 0.72 : 1;
-    particles.forEach((particle, index) => {
-      const spread = activeChapter === 0 ? 0 : activeChapter === 1 ? 0.5 : 1;
-      particle.style.opacity = activeChapter === 0 ? '0' : String(0.4 + index % 3 * 0.25);
-      particle.style.transform = `translate(calc(-50% + ${Number(particle.dataset.x) * spread * mobileScale}px), calc(-50% + ${Number(particle.dataset.y) * spread * mobileScale}px)) rotate(${particle.dataset.rotate}deg)`;
-      particle.style.transitionDelay = motionPaused ? '0s' : `${index % 7 * .025}s`;
-    });
-  }
   const scrollRange = document.documentElement.scrollHeight - innerHeight;
   $('.scroll-progress').style.width = `${scrollRange > 0 ? scrollY / scrollRange * 100 : 0}%`;
 }
 function queueScroll() { if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScroll); }
 addEventListener('scroll', queueScroll, { passive: true });
-addEventListener('resize', () => { chapter = -1; queueScroll(); });
-addEventListener('motionchange', () => { chapter = -1; queueScroll(); });
+addEventListener('resize', queueScroll);
 updateScroll();
 window.addEventListener('pagehide', () => cancelAnimationFrame(scrollFrame));

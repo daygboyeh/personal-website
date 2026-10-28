@@ -61,17 +61,31 @@ $('#terminal-form').addEventListener('submit', event => {
   input.value = '';
   const response = document.createElement('p');
   const replies = {
-    help: 'building → Together Parenting\\nwork → selected projects\nexperience → career timeline\nskills → technical toolkit\nabout → meet Adebiyi\ncv → download my CV\ncontact → get in touch\nplay → optional console game\nreel → Systems in Motion\nclear → clear terminal\nexit → close terminal',
+    help: 'building → Together Parenting\nwork → selected projects\nexperience → career timeline\nskills → technical toolkit\nabout → meet Adebiyi\ncv → download my CV\ncontact → get in touch\nplay → optional console game\nsignal → play Signal Box\nstamps → your journey card\nrules → how I work\ngithub → my GitHub\ncluster → throw some pods around\nclear → clear terminal\nexit → close terminal',
     hello: 'Hi, I’m Adebiyi Adegboye. I build platforms, lead engineers, and solve complex delivery problems.',
     about: 'Platform Engineering Team Lead at Gresham, based in London. 8+ years in cloud, DevOps, and Kubernetes.',
     work: 'Loading selected work…', quests: 'Loading selected work…', projects: 'Loading selected work…',
     building: 'Together Parenting — a product we’re building to connect everyday care.', together: 'Loading Together Parenting…', experience: 'Loading my career timeline…', skills: 'Loading my toolkit…', contact: 'Email: loluadegboye@gmail.com',
-    cv: 'Downloading my CV as a PDF.', play: 'Platform lab online. Deploy services with A, or tap the service icon.', reel: 'Opening Systems in Motion…'
+    cv: 'Downloading my CV as a PDF.', play: 'Platform lab online. Deploy services with A, or tap the service icon.', signal: 'Opening the signal box. Mind the points.', rules: 'Opening the byelaws. Untested = broken.', github: 'Opening github.com/daygboyeh…', stamps: 'Opening your journey card…',
+    cluster: 'Scheduling you onto node london-1…',
+    whoami: 'visitor — namespace/you, role: curious. Access level: welcome.',
+    ls: 'work/  building/  experience/  cluster/  console/  Adebiyi_Adegboye_CV.pdf',
+    'kubectl get pods': 'NAME                  READY   STATUS     RESTARTS   AGE\nplatform-lead         1/1     Running    0          8y\ntogether-parenting    1/1     Running    0          new\ncuriosity             1/1     Running    0          always\ncoffee                0/1     Pending    3          5m',
+    'sudo hire-me': 'Permission granted. Opening a fresh email…', 'hire-me': 'Permission denied. Try sudo.',
+    'git blame': 'git blame production\n→ It was DNS. (It is always DNS.)',
+    'rm -rf /': 'Nice try. Blocked by RBAC, an admission controller, and common sense.',
+    uptime: '', fortune: '',
+    coffee: 'Error 418: I’m a teapot. Brewing anyway ☕',
+    chaos: 'Releasing the chaos monkey. Self-healing in 3, 2, 1…',
+    ping: 'PONG. Latency: low. Enthusiasm: high.'
   };
+  const fortunes = ['Automate the second time, not the first.', 'A runbook nobody can follow is a wish.', 'The best incident is the boring one you prevented.', 'Every manual step is a future outage with a calendar invite.', 'Good platforms are invisible until you need them, then obvious.', 'Measure the cost before someone else measures it for you.'];
+  if (command === 'uptime') replies.uptime = `up ${Math.round(performance.now() / 1000)}s on this page · load average: curious, very curious, extremely curious`;
+  if (command === 'fortune') replies.fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
   if (command === 'clear') output.replaceChildren();
   else if (command === 'exit') terminal.close();
   else { response.textContent = replies[command] || `Unknown command: ${command}. Try help.`; output.append(response); }
-  const destinations = {building:'#building',together:'#building',about:'#player',skills:'#player',work:'#quests',quests:'#quests',projects:'#quests',experience:'#experience',contact:'#contact'};
+  const destinations = {rules:'#rules',signal:'#signal',cluster:'#cluster',chaos:'#cluster',building:'#building',together:'#building',about:'#player',skills:'#player',work:'#quests',quests:'#quests',projects:'#quests',experience:'#experience',contact:'#contact'};
   if (destinations[command]) {
     terminal.close();
     $(destinations[command]).scrollIntoView({behavior:motionPaused?'instant':'smooth'});
@@ -80,7 +94,11 @@ $('#terminal-form').addEventListener('submit', event => {
     const link=document.createElement('a');link.href='assets/Adebiyi_Adegboye_CV.pdf?v=3';link.download='Adebiyi_Adegboye_CV.pdf';link.click();
   }
   if (command === 'play') { terminal.close(); $('#world-wrap').scrollIntoView({ behavior: motionPaused ? 'instant' : 'smooth', block: 'center' }); window.dispatchEvent(new Event('startconsole')); $('#world').focus({ preventScroll: true }); }
-  if (command === 'reel') { terminal.close(); $('#play-reel').click(); }
+  if (['kubectl get pods','sudo hire-me','git blame','rm -rf /','coffee','fortune','whoami','uptime','ls','ping'].includes(command)) window.dispatchEvent(new CustomEvent('stamp', { detail: 'secret' }));
+  if (command === 'chaos') window.dispatchEvent(new Event('clusterchaos'));
+  if (command === 'sudo hire-me') { window.dispatchEvent(new Event('sparkburst')); location.href = 'mailto:loluadegboye@gmail.com?subject=Let%E2%80%99s%20talk'; }
+  if (command === 'github') window.open('https://github.com/daygboyeh', '_blank', 'noopener');
+  if (command === 'stamps') { terminal.close(); window.dispatchEvent(new Event('openjourney')); }
   // Keep the optional terminal bounded over long sessions.
   while (output.children.length > 60) output.firstElementChild.remove();
   output.scrollTop = output.scrollHeight;

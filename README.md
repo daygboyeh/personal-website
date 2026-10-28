@@ -2,7 +2,18 @@
 
 A personal website covering platform engineering, cloud architecture, leadership,
 career experience, education, and selected work. Customer and product names are
-anonymized throughout the website, downloadable CV, and motion film.
+anonymized throughout the website and downloadable CV.
+
+## Concept: Platforms
+The site is a transit network. Each line colour is a domain of work (Cloud,
+Platform, Operations, Leadership), sections are stations on a route, and the
+visitor is a passenger collecting stamps. It is built to be played, not watched:
+- **Departures board**: a split-flap board with a live clock; each departure links to a section.
+- **Route rail** (wide screens): stations down the left edge, with a train that follows your scroll.
+- **Signal Box**: an arcade game. Route trains to the right line; after 10, colour hints switch off.
+- **Byelaws**: engineering principles as flip cards, and a Definition of Done checklist you can ship.
+- **The Depot**: every tool is a throwable pod that you can scale, crash, and watch self-heal.
+- **Journey card**: 12 stamps earned by trying things around the site.
 
 ## Run locally
 From this directory, run:
@@ -10,40 +21,44 @@ From this directory, run:
 Then open http://127.0.0.1:4173.
 
 This is a static website. It needs no package installation or build step.
+Bump the `?v=` query on stylesheet and script URLs in index.html when you deploy
+changes, so returning visitors don't run stale cached files.
 
 ## Files
 - index.html: page content and accessible navigation
-- styles.css, console.css, motion.css, personal.css: responsive design and motion
-- career.js: generic project descriptions and career timeline
-- app.js: dialogs, command navigation, and interface controls
-- experience.js: interactive console and scroll-driven scenes
-- reel.js: motion film playback
-- assets/: CV downloads, film, and poster
-- tools/motion-film/: editable renderer and original soundtrack generator
+- base.css: design tokens, line colours, header, route rail, dialogs, footer
+- hero.css, board.js: hero and split-flap departures board
+- stations.css: section styling (Signal Box, tickets, career line, byelaws, passes, contact)
+- route.js: route rail station tracking
+- game.js: journey card stamps (other modules award one with a `stamp` event)
+- signal.js: Signal Box game
+- rules.js: byelaw cards and the Definition of Done checklist
+- cluster.js, cluster.css: the pod depot
+- career.js: project descriptions and career timeline
+- app.js: dialogs, terminal commands, and interface controls
+- experience.js, console.css: Platform Lab console and the scroll progress bar
+- together.js, together.css: Together Parenting interactive concept
+- intro.js, intro.css: once-per-session kubectl boot intro (skippable; off for reduced motion)
+- fun.js, fun.css: magnetic name, footer status, and easter eggs
+- assets/: CV downloads and the Together app icon
 
-The source for the 24-second film renders native 1080p at 60 fps using Python,
-Pillow, NumPy, and FFmpeg. See tools/motion-film/README.md.
+Progress (stamps, Signal Box best score) is stored only in the visitor's browser
+as a convenience; everything works without storage. All decorative animation
+respects reduced-motion preferences and the header motion toggle.
 
-## Private hosted version
-https://adebiyi-adegboye-platform.zeal22.chatgpt.site
+The earlier Systems in Motion film is no longer on the page. Its video files in
+assets/ and the renderer in tools/motion-film/ are kept in the repository.
+
+## Easter eggs
+Hidden terminal commands (`kubectl get pods`, `sudo hire-me`, `fortune`, `uptime`,
+`git blame`, `chaos`, `rules`, `github`), clicking the ✳ brand mark five times,
+typing "dns", "yaml", "deploy", or "sudo" anywhere on the page, the Konami code,
+switching tabs, and a note in the DevTools console. Each secret earns a stamp.
 
 ## Now building
 The portfolio features Together Parenting, a product we are building for shared
 family care, with the app icon, product link, and an illustrative shared-care
-interaction. The section is implemented in together.css and together.js.
+interaction.
 
-## Profile film
-Systems in Motion is visible directly in the page at #film, with a poster,
-native video controls, a Play film button, and an MP4 download. The hero,
-navigation, footer, and terminal reel command provide direct entry points.
-The responsive player is styled in film.css and controlled by reel.js.
-
-## Welcome motion
-The welcome screen automatically plays a silent 13.7-second highlights loop.
-It respects reduced-motion preferences and the page motion toggle, and pauses
-when offscreen, in a hidden tab, or while the full film plays. On small screens
-the preview appears directly below the name. The interactive console is in the
-Platform Lab section. Implementation: welcome.css and welcome.js.
-
-Regenerate the 720p, 30 fps preview with FFmpeg installed:
-    python3 tools/motion-film/make_welcome_preview.py --site-directory .
+## Private hosted version
+https://adebiyi-adegboye-platform.zeal22.chatgpt.site
