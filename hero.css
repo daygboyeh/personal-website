@@ -57,3 +57,8 @@
   .welcome-motion{width:92%;margin-top:-26px}
 }
 @media(prefers-reduced-motion:reduce){.board-calling>div{animation:none}.flap.flipping{animation:none}}
+
+.hero-proof{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:8px 34px;margin:20px 0 0;padding:16px 0 0;border-top:1px solid var(--line);max-width:560px}
+.hero-proof span{display:flex;flex-direction:column;gap:2px;font:600 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.hero-proof b{font:800 30px var(--sans);letter-spacing:-.02em;color:var(--ink);text-transform:none}
+@media(max-width:560px){.hero-proof{gap:8px 18px}.hero-proof b{font-size:24px}.hero-proof span{font-size:9.5px}}

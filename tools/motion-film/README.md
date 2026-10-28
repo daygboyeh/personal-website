@@ -12,7 +12,7 @@ An original 24-second engineering profile film for Adebiyi Adegboye.
 00:08.5 — Azure and AKS architecture and delivery
 00:11.5 — Engineering leadership
 00:14 — Selected Alveo outcomes: 30%, 75%, 20%
-00:17 — Career progression: TLS Logistics, Audeo, Alveo, Gresham
+00:17 — Career progression: TSL Logistics, Audeo, Gresham
 00:20 — Name, role, and contact
 
 Résumé facts follow the previously prepared CV; the Azure section reflects
