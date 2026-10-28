@@ -75,7 +75,7 @@ document.querySelectorAll('[data-project]').forEach(button => button.addEventLis
 const visitedStops = new Set();
 document.querySelectorAll('[data-career]').forEach(tab => tab.addEventListener('click', () => {
   visitedStops.add(tab.dataset.career);
-  if (visitedStops.size === 4) awardStamp('line');
+  if (visitedStops.size === document.querySelectorAll('[data-career]').length) awardStamp('line');
 }));
 new MutationObserver(() => { if ($('#terminal-dialog').open) awardStamp('terminal'); }).observe($('#terminal-dialog'), { attributes: true, attributeFilter: ['open'] });
 $('#care-connect').addEventListener('click', () => awardStamp('together'));

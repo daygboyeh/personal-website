@@ -30,22 +30,7 @@
 .board-calling>div{display:flex;gap:10px;width:max-content;white-space:nowrap;animation:ticker 36s linear infinite}
 .board-calling span{color:#fff;font-weight:700;margin:0 6px 0 22px}
 
-/* Station screen: the muted welcome loop, mounted like a platform monitor. */
-.welcome-motion{width:min(440px,86%);justify-self:end;margin-top:-62px;margin-right:-18px;position:relative;z-index:2;background:#0b0c10;border-radius:14px;padding:10px;transform:rotate(-2.5deg);box-shadow:0 26px 50px -16px #14171f99;color:#cfc9bb;font:600 9px var(--mono);letter-spacing:.12em}
-.welcome-motion::before{content:'';position:absolute;left:50%;top:-38px;width:6px;height:38px;background:#2b2e36;transform:translateX(-50%)}
-.welcome-motion-top,.welcome-motion-bottom{display:flex;justify-content:space-between;align-items:center;padding:4px 4px 9px}
-.welcome-motion-bottom{padding:9px 4px 3px}
-.welcome-motion-bottom a{color:var(--amber)}
-.welcome-motion-bottom a:hover{color:#fff}
-.welcome-motion-state{display:flex;align-items:center;gap:6px}
-.welcome-motion-state i{width:6px;height:6px;border-radius:50%;background:#666}
-.welcome-motion.is-playing .welcome-motion-state i{background:#ff4d3d;box-shadow:0 0 8px #ff4d3d}
-.welcome-motion-surface{aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#000}
-.welcome-motion-surface video{width:100%;height:100%;object-fit:cover}
-.welcome-motion-progress{height:2px;background:#ffffff1a;margin-top:6px}
-.welcome-motion-progress span{display:block;height:100%;background:var(--amber);transform:scaleX(0);transform-origin:left}
-
-@media(max-width:1000px){.hero{grid-template-columns:1fr;min-height:0;padding-top:50px;gap:44px}.welcome-motion{margin-top:-40px;margin-right:0}}
+@media(max-width:1000px){.hero{grid-template-columns:1fr;min-height:0;padding-top:50px;gap:44px}}
 @media(max-width:700px){
   .hero{padding:36px 16px 70px}
   .hero h1{font-size:clamp(50px,15vw,76px);margin:20px 0 34px}
@@ -54,6 +39,10 @@
   .board-cols span:last-child,.board-row .c-status{display:none}
   .board-row{font-size:11px}
   .board-calling{margin:0 -14px}
-  .welcome-motion{width:92%;margin-top:-26px}
 }
 @media(prefers-reduced-motion:reduce){.board-calling>div{animation:none}.flap.flipping{animation:none}}
+
+.hero-proof{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:8px 34px;margin:20px 0 0;padding:16px 0 0;border-top:1px solid var(--line);max-width:560px}
+.hero-proof span{display:flex;flex-direction:column;gap:2px;font:600 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.hero-proof b{font:800 30px var(--sans);letter-spacing:-.02em;color:var(--ink);text-transform:none}
+@media(max-width:560px){.hero-proof{gap:8px 18px}.hero-proof b{font-size:24px}.hero-proof span{font-size:9.5px}}
