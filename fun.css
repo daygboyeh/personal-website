@@ -1,0 +1,13 @@
+.magnet-letter{display:inline-block;transition:transform .35s cubic-bezier(.2,.9,.3,1.4);will-change:transform}
+.spark{position:fixed;z-index:900;pointer-events:none;color:var(--accent);font-size:18px;transform:translate(-50%,-50%);animation:spark-fly .9s cubic-bezier(.15,.8,.3,1) forwards}
+.spark:nth-child(even){color:#5aab7f;font-size:13px}
+@keyframes spark-fly{to{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) rotate(var(--spin)) scale(.4);opacity:0}}
+.sudo-mode{--accent:#b4462d;--lime:#f6c9b6}
+.sudo-mode .site-header::after{content:'# SUDO';font:10px/1 var(--mono);letter-spacing:1.6px;color:#fff;background:#b4462d;padding:6px 9px;border-radius:6px}
+.yaml-wobble main{animation:yaml-wobble .8s}
+@keyframes yaml-wobble{20%{transform:translateX(-14px) skewX(-2deg)}40%{transform:translateX(10px) skewX(1.5deg)}60%{transform:translateX(-6px)}80%{transform:translateX(3px)}}
+.site-status{display:inline-flex;align-items:center;gap:8px;font:10px/1 var(--mono);letter-spacing:1.4px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.site-status .status-dot{animation:status-pulse 2s infinite}
+@keyframes status-pulse{50%{box-shadow:0 0 0 7px #5aab7f00}0%{box-shadow:0 0 0 0 #5aab7f66}}
+.motion-paused .magnet-letter,.motion-paused .site-status .status-dot{transform:none!important;animation:none}
+@media(prefers-reduced-motion:reduce){.magnet-letter{transition:none}.yaml-wobble main,.site-status .status-dot{animation:none}}
