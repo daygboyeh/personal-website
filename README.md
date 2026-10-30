@@ -51,7 +51,7 @@ assets/ and the renderer in tools/motion-film/ are kept in the repository.
 
 ## Easter eggs
 Hidden terminal commands (`kubectl get pods`, `sudo hire-me`, `fortune`, `uptime`,
-`git blame`, `chaos`, `rules`, `github`), clicking the ✳ brand mark five times,
+`git blame`, `chaos`, `rules`, `github`), clicking the brand mark five times,
 typing "dns", "yaml", "deploy", or "sudo" anywhere on the page, the Konami code,
 switching tabs, and a note in the DevTools console. Each secret earns a stamp.
 

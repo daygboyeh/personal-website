@@ -47,14 +47,14 @@ $('.hero').addEventListener('pointermove', event => {
 });
 $('.hero').addEventListener('pointerleave', () => { magnetPointer = null; if (!magnetFrame) magnetFrame = requestAnimationFrame(pushLetters); });
 
-// Burst of ✳ sparks from a point on screen.
+// Burst of sparks from a point on screen.
 function sparkBurst(x, y, count = 18) {
   if (motionPaused) return;
   for (let index = 0; index < count; index++) {
     const spark = document.createElement('span');
     spark.className = 'spark';
     spark.setAttribute('aria-hidden', 'true');
-    spark.textContent = index % 3 ? '✳' : '⬡';
+    spark.textContent = index % 3 ? '●' : '◆';
     const angle = (index / count) * Math.PI * 2 + Math.random() * 0.4;
     const reach = 60 + Math.random() * 90;
     spark.style.left = `${x}px`;
@@ -67,7 +67,7 @@ function sparkBurst(x, y, count = 18) {
   }
 }
 
-// Easter egg: click the ✳ brand mark five times quickly for sudo mode.
+// Easter egg: click the brand mark five times quickly for sudo mode.
 let brandClicks = 0;
 let brandTimer;
 document.querySelectorAll('.brand-mark').forEach(mark => mark.closest('a').addEventListener('click', event => {
@@ -102,7 +102,7 @@ document.addEventListener('keydown', event => {
 // When the tab is hidden, the page gets evicted; it reschedules when you come back.
 const pageTitle = document.title;
 document.addEventListener('visibilitychange', () => {
-  document.title = document.hidden ? '✳ Pod evicted. Come back?' : pageTitle;
+  document.title = document.hidden ? 'Pod evicted. Come back?' : pageTitle;
 });
 
 // Footer status page: live session uptime and an on-call mood based on the visitor's clock.
@@ -120,5 +120,5 @@ window.addEventListener('pagehide', () => { clearInterval(statusTimer); cancelAn
 window.addEventListener('sparkburst', event => sparkBurst(event.detail?.x ?? innerWidth / 2, event.detail?.y ?? innerHeight / 2, 30));
 
 // For the curious who open DevTools.
-console.log('%c✳ ADEGBOYE', 'font:700 22px Helvetica,Arial,sans-serif;color:#326f65');
-console.log('Looking under the hood? Good instinct. No framework, no build step. Just HTML, CSS, and vanilla JS.\nSecrets: try the terminal (`), click the ✳ five times, type "dns" or "yaml", or remember a certain cheat code. Each one earns a stamp.\nSay hello: loluadegboye@gmail.com');
+console.log('%c● ADEGBOYE', 'font:700 22px Helvetica,Arial,sans-serif;color:#326f65');
+console.log('Looking under the hood? Good instinct. No framework, no build step. Just HTML, CSS, and vanilla JS.\nSecrets: try the terminal (`), click the logo five times, type "dns" or "yaml", or remember a certain cheat code. Each one earns a stamp.\nSay hello: loluadegboye@gmail.com');
