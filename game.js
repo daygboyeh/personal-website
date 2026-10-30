@@ -1,24 +1,27 @@
 'use strict';
-// Journey card: twelve stamps for trying things around the site. Other modules award a
+// Achievements: twelve badges for trying things around the site. Other modules award a
 // stamp by dispatching `new CustomEvent('stamp', { detail: id })`. Progress lives only in
 // this browser's storage as a convenience; the page works the same without it.
 const stampDefs = [
   ['done', '✓', 'Definition of done', 'Tick every box and ship it.'],
-  ['explorer', '◉', 'Every stop', 'Visit every station on the route.'],
-  ['ticket', '⌗', 'Ticket holder', 'Open a work ticket.'],
-  ['line', '━', 'Line rider', 'Visit every stop on the career line.'],
+  ['explorer', '◉', 'Full coverage', 'Visit every service on the page.'],
+  ['ticket', '⌗', 'Runbook reader', 'Open a deployment under Work.'],
+  ['line', '━', 'Release historian', 'Open every release in my history.'],
   ['terminal', '>_', 'Root shell', 'Open the terminal.'],
-  ['signal', '⇄', 'Signaller', 'Route 10 trains in Signal Box.'],
-  ['throw', '⤴', 'Pod thrower', 'Throw a pod across the depot.'],
+  ['signal', '⇄', 'Traffic cop', 'Route 10 requests in the traffic router.'],
+  ['throw', '⤴', 'Pod thrower', 'Throw a pod across the cluster.'],
   ['chaos', '⚡', 'Chaos engineer', 'Set the chaos monkey loose.'],
-  ['console', '✦', 'Console cowboy', 'Deploy 10 services in the lab.'],
+  ['provision', '▶', 'Golden path', 'Provision a manifest in self-service.'],
   ['together', '♡', 'Better together', 'Bring the Together demo together.'],
   ['secret', '?', 'Secret keeper', 'Find a hidden easter egg.'],
   ['hello', '✉', 'Say hello', 'Copy my email or write to me.']
 ];
 const stampStorageKey = 'ade-stamps';
+// Badges cycle through the namespace colours.
+const badgeLines = ['line-plat', 'line-cloud', 'line-ops', 'line-lead'];
 const stamps = new Set();
-try { JSON.parse(localStorage.getItem(stampStorageKey) || '[]').forEach(id => stamps.add(id)); } catch { /* storage unavailable: start fresh */ }
+// Ignore ids from older versions of the site so the count never exceeds the badges shown.
+try { JSON.parse(localStorage.getItem(stampStorageKey) || '[]').filter(id => stampDefs.some(([known]) => known === id)).forEach(id => stamps.add(id)); } catch { /* storage unavailable: start fresh */ }
 
 function saveStamps() {
   try { localStorage.setItem(stampStorageKey, JSON.stringify([...stamps])); } catch { /* keep in memory only */ }
@@ -26,17 +29,17 @@ function saveStamps() {
 function renderStamps() {
   const total = stampDefs.length;
   document.querySelectorAll('.stamp-count').forEach(count => { count.textContent = `${stamps.size}/${total}`; });
-  document.querySelectorAll('[data-open-journey]').forEach(button => button.setAttribute('aria-label', `Open journey card, ${stamps.size} of ${total} stamps collected`));
+  document.querySelectorAll('[data-open-journey]').forEach(button => button.setAttribute('aria-label', `Open achievements, ${stamps.size} of ${total} unlocked`));
   $('#journey-summary').textContent = stamps.size === total
-    ? 'Journey complete. Every stamp collected. You’ve earned a conversation.'
-    : `${stamps.size} of ${total} collected. Each one is something to try.`;
+    ? 'Fully reconciled. Every achievement unlocked. You’ve earned a conversation.'
+    : `${stamps.size} of ${total} unlocked. Each one is something to try.`;
   $('#stamp-grid').replaceChildren(...stampDefs.map(([id, glyph, name, hint]) => {
     const item = document.createElement('li');
     const got = stamps.has(id);
-    item.className = got ? 'stamp got' : 'stamp';
+    item.className = `stamp ${badgeLines[stampDefs.findIndex(([stampId]) => stampId === id) % badgeLines.length]}${got ? ' got' : ''}`;
     const mark = document.createElement('span'); mark.className = 'stamp-mark'; mark.setAttribute('aria-hidden', 'true'); mark.textContent = got ? glyph : '·';
     const title = document.createElement('strong'); title.textContent = name;
-    const detail = document.createElement('small'); detail.textContent = got ? 'Collected' : hint;
+    const detail = document.createElement('small'); detail.textContent = got ? 'Unlocked' : hint;
     item.append(mark, title, detail);
     return item;
   }));
@@ -52,8 +55,8 @@ function awardStamp(id) {
   const bounds = hud.getBoundingClientRect();
   if (bounds.width) window.dispatchEvent(new CustomEvent('sparkburst', { detail: { x: bounds.left + bounds.width / 2, y: bounds.top + bounds.height / 2 } }));
   notify(stamps.size === stampDefs.length
-    ? 'Journey complete: all 12 stamps! Next stop, a conversation.'
-    : `Stamp collected: ${definition[2]} · ${stamps.size}/${stampDefs.length}`);
+    ? 'All 12 achievements unlocked. Next deploy: a conversation.'
+    : `Achievement unlocked: ${definition[2]} · ${stamps.size}/${stampDefs.length}`);
 }
 window.addEventListener('stamp', event => awardStamp(event.detail));
 
@@ -66,9 +69,9 @@ const journeyReset = $('#journey-reset');
 journeyReset.addEventListener('click', () => {
   if (journeyReset.dataset.armed !== 'true') { journeyReset.dataset.armed = 'true'; journeyReset.textContent = 'Click again to reset'; return; }
   stamps.clear(); saveStamps(); renderStamps();
-  journeyReset.dataset.armed = 'false'; journeyReset.textContent = 'Reset my card';
+  journeyReset.dataset.armed = 'false'; journeyReset.textContent = 'Reset achievements';
 });
-journeyDialog.addEventListener('close', () => { journeyReset.dataset.armed = 'false'; journeyReset.textContent = 'Reset my card'; });
+journeyDialog.addEventListener('close', () => { journeyReset.dataset.armed = 'false'; journeyReset.textContent = 'Reset achievements'; });
 
 // Stamps earned from plain page interactions.
 document.querySelectorAll('[data-project]').forEach(button => button.addEventListener('click', () => awardStamp('ticket')));

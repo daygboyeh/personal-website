@@ -1,5 +1,5 @@
 'use strict';
-// Byelaws: flip the rule cards, and ship only when the definition of done is met.
+// Policies: flip the rule cards, and ship only when the definition of done is met.
 const ruleDeck = $('#rule-deck');
 ruleDeck.addEventListener('click', event => {
   const card = event.target.closest('.rule-card');

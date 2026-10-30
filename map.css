@@ -1,0 +1,41 @@
+/* Service map: the page as a cluster topology, opened from the header or with M. */
+.map-toggle{height:38px;border:1px solid var(--line);background:transparent;border-radius:10px;padding:0 11px;display:flex;align-items:center;gap:7px;font:600 12px var(--sans)}
+.map-toggle:hover{border-color:var(--ink)}
+.map-toggle svg{width:20px;height:20px;overflow:visible}
+.map-toggle path{fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.map-toggle circle{fill:var(--paper);stroke:var(--accent);stroke-width:1.8}
+#map-dialog{width:min(860px,calc(100% - 24px));border-top:10px solid var(--ink)}
+.map-intro{margin:0 0 8px}
+.map-intro kbd{font:700 11px var(--mono);border:1px solid var(--line);border-bottom-width:3px;border-radius:5px;padding:1px 6px;background:#fff8}
+.line-ingress,.line-egress{--c:var(--ink)}
+.topology{position:relative;aspect-ratio:16/10;margin:14px 0 6px;border-radius:16px;background:radial-gradient(circle at 1px 1px,#14171f1f 1px,transparent 0) 0 0/18px 18px,#fff6;border:1px solid var(--line)}
+.topology-edges{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.topology-edges path{fill:none;stroke:var(--c);vector-effect:non-scaling-stroke;stroke-linecap:round}
+.topology-edges .edge{stroke-width:5;opacity:.32}
+.topology-edges .flow{stroke-width:3;stroke-dasharray:2 12;opacity:.95;animation:traffic 1.4s linear infinite}
+@keyframes traffic{to{stroke-dashoffset:-28}}
+.topology-nodes{list-style:none;margin:0;padding:0;position:absolute;inset:0}
+.topology-nodes li{position:absolute;width:0;height:0}
+/* The link is centred on its dot and is at least 44px wide for touch. */
+.topo-node{position:absolute;left:0;top:0;transform:translate(-50%,-15px);display:flex;flex-direction:column;align-items:center;gap:5px;min-width:44px;padding:4px 4px 6px;border-radius:12px;text-align:center}
+.topo-node:hover .node-dot,.topo-node:focus-visible .node-dot{transform:scale(1.25)}
+.node-dot{width:22px;height:22px;border-radius:7px;background:var(--paper);border:4px solid var(--c);transition:transform .2s;position:relative}
+.topo-node.visited .node-dot{background:var(--c)}
+.topo-node.visited .node-dot::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid var(--paper);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.line-ingress .node-dot,.line-egress .node-dot{width:30px;height:30px;border-radius:50%;background:var(--ink);border-color:var(--amber);margin-top:-4px}
+.node-label{font:700 13px var(--sans);letter-spacing:-.01em;white-space:nowrap;background:var(--paper);padding:1px 5px;border-radius:5px}
+.node-label small{display:block;font:500 10px var(--mono);letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.topo-node[aria-current] .node-dot{box-shadow:0 0 0 4px var(--paper),0 0 0 7px var(--amber)}
+.topo-node[aria-current] .node-label{background:var(--amber)}
+.map-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:10px 0 0;font:600 11px var(--mono);letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.map-legend span{display:inline-flex;align-items:center;gap:6px}
+.map-legend span::before{content:'';width:14px;height:5px;border-radius:3px;background:var(--c)}
+.map-legend .you-key::before{width:10px;height:10px;border-radius:50%;background:var(--paper);box-shadow:0 0 0 2px var(--amber)}
+@media(max-width:700px){
+  .topology{aspect-ratio:3/4}
+  .node-label{font-size:11px;padding:1px 3px}.node-label small{display:none}
+  .node-dot{width:18px;height:18px;border-width:3px}
+  .topo-node{transform:translate(-50%,-13px)}
+}
+@media(max-width:480px){.map-label{display:none}.map-toggle{padding:0 9px}.terminal-toggle{display:none}}
+@media(prefers-reduced-motion:reduce){.topology-edges .flow{animation:none}}

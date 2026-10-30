@@ -1,6 +1,6 @@
 'use strict';
-// Signal Box: trains carrying a tool head for the junction; set the points to send each
-// one to its line. Colour hints switch off after 10 trains (the "night service").
+// Traffic router: requests carrying a tool name head for the load balancer; set the route to
+// send each one to its namespace. Colour hints switch off after 10 requests ("dark dashboards").
 const signalStage = $('#signal-stage');
 const signalOverlay = $('#signal-overlay');
 const signalStatus = $('#signal-status');
@@ -10,7 +10,7 @@ const pointButtons = [...document.querySelectorAll('[data-point]')];
 const lineNames = ['Cloud', 'Platform', 'Operations', 'Leadership'];
 const lineClasses = ['line-cloud', 'line-plat', 'line-ops', 'line-lead'];
 const kindToLine = { cloud: 0, platform: 1, ops: 2, people: 3 };
-const ranks = [[0, 'Trainee signaller'], [8, 'Signaller'], [18, 'Senior signaller'], [30, 'Network controller'], [45, 'Platform lead']];
+const ranks = [[0, 'On-call shadow'], [8, 'On-call engineer'], [18, 'Senior SRE'], [30, 'Platform engineer'], [45, 'Platform lead']];
 const nightServiceAt = 10;
 let signalBest = 0;
 try { signalBest = Number(localStorage.getItem('ade-signal-best')) || 0; } catch { /* no storage: best resets */ }
@@ -28,7 +28,7 @@ const pad = value => String(value).padStart(3, '0');
 function renderSignalHud() {
   $('#signal-score').textContent = pad(signalScore);
   $('#signal-streak').textContent = String(signalStreak);
-  $('#signal-lives').textContent = '♥'.repeat(signalLives) + '♡'.repeat(3 - signalLives);
+  $('#signal-lives').textContent = '■'.repeat(signalLives) + '□'.repeat(3 - signalLives);
   $('#signal-best').textContent = pad(signalBest);
 }
 function setPoint(index, announce = true) {
@@ -36,7 +36,7 @@ function setPoint(index, announce = true) {
   branchPaths.forEach((path, pathIndex) => path.classList.toggle('set', pathIndex === index));
   pointButtons.forEach((button, buttonIndex) => button.setAttribute('aria-pressed', String(buttonIndex === index)));
   signalStage.style.setProperty('--set', `var(--${['cloud', 'plat', 'ops', 'lead'][index]})`);
-  if (announce && !signalRunning) signalStatus.textContent = `Points set to ${lineNames[index]}.`;
+  if (announce && !signalRunning) signalStatus.textContent = `Routing to ${lineNames[index]}.`;
 }
 function pointOnPath(path, progress) {
   const length = path.getTotalLength();
@@ -59,7 +59,7 @@ function spawnTrain() {
   // Trains speed up as the score rises, with a floor so it stays playable.
   const trunkTime = Math.max(1100, 2800 - signalScore * 75);
   train = { element, name, target, phase: 'trunk', progress: 0, trunkTime, branchTime: 650, branch: null };
-  signalStatus.textContent = night ? `Night service: ${name} approaching. Which line?` : `${name} approaching on the ${lineNames[target]} line.`;
+  signalStatus.textContent = night ? `Dashboards dark: ${name} request incoming. Which namespace?` : `${name} request incoming for ${lineNames[target]}.`;
 }
 function resolveJunction() {
   train.branch = selectedPoint;
@@ -69,13 +69,13 @@ function resolveJunction() {
     signalScore++; signalStreak++;
     const bonus = signalStreak > 0 && signalStreak % 5 === 0;
     if (bonus && signalLives < 3) signalLives++;
-    signalStatus.textContent = bonus ? `${train.name} on time. Five in a row: ${signalLives === 3 ? 'perfect run!' : 'a life restored.'}` : `${train.name} routed to ${lineNames[train.target]}. On time.`;
+    signalStatus.textContent = bonus ? `${train.name} served. Five in a row: ${signalLives === 3 ? 'flawless!' : 'error budget restored.'}` : `${train.name} routed to ${lineNames[train.target]}. 200 OK.`;
     train.element.classList.add('good');
-    if (signalScore === nightServiceAt) { notify('Night service begins: no more colour hints. Know your tools.'); }
+    if (signalScore === nightServiceAt) { notify('Dashboards down: no more colour hints. Know your tools.'); }
     if (signalScore === 10) window.dispatchEvent(new CustomEvent('stamp', { detail: 'signal' }));
   } else {
     signalLives--; signalStreak = 0;
-    signalStatus.textContent = `Wrong line! ${train.name} runs on ${lineNames[train.target]}, not ${lineNames[selectedPoint]}.`;
+    signalStatus.textContent = `502! ${train.name} belongs in ${lineNames[train.target]}, not ${lineNames[selectedPoint]}.`;
     train.element.classList.add('bad');
     signalStage.classList.remove('shake'); void signalStage.offsetWidth; signalStage.classList.add('shake');
   }
@@ -128,10 +128,10 @@ function endShift() {
   if (newBest) { signalBest = signalScore; try { localStorage.setItem('ade-signal-best', String(signalBest)); } catch { /* best kept for this visit */ } }
   const rank = ranks.filter(([minimum]) => signalScore >= minimum).pop()[1];
   $('#signal-title-card').textContent = newBest && signalScore ? `New best: ${signalScore}!` : `Shift over: ${signalScore}`;
-  $('#signal-message').textContent = `Rank: ${rank}. ${signalScore >= nightServiceAt ? 'You survived the night service.' : `Reach ${nightServiceAt} to unlock the night service.`}`;
+  $('#signal-message').textContent = `Rank: ${rank}. ${signalScore >= nightServiceAt ? 'You routed blind with the dashboards down.' : `Route ${nightServiceAt} to make the dashboards go dark.`}`;
   $('#signal-start').firstChild.textContent = 'Another shift ';
   signalOverlay.hidden = false;
-  signalStatus.textContent = `Shift over. ${signalScore} trains on time. Rank: ${rank}.`;
+  signalStatus.textContent = `Shift over. ${signalScore} requests served. Rank: ${rank}.`;
   renderSignalHud();
   $('#signal-start').focus({ preventScroll: true });
 }

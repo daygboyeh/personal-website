@@ -1,4 +1,4 @@
-/* Game layer: header stamp HUD, hero journey card call-to-action, journey dialog. */
+/* Game layer: header achievements HUD, hero call-to-action, achievements dialog. */
 .stamp-hud{height:38px;display:flex;align-items:center;gap:7px;padding:0 12px;border-radius:10px;border:2px solid var(--ink);background:var(--amber);font:700 12px var(--mono);font-variant-numeric:tabular-nums}
 .stamp-hud span:first-child{font-size:15px}
 .stamp-hud.bump{animation:hud-bump .6s cubic-bezier(.2,1.6,.4,1)}
@@ -16,11 +16,14 @@
 .stamp strong{font-size:13px;letter-spacing:-.01em}
 .stamp small{font-size:11px;color:var(--muted);line-height:1.35}
 .stamp.got{border-style:solid;border-color:var(--ink);background:#fff8}
-.stamp.got .stamp-mark{color:var(--ops);transform:rotate(-12deg);background:#ec5f2a14;border-style:double;border-width:5px}
+.stamp-mark{border-radius:16px}
+.stamp.got{border-color:var(--c)}
+.stamp.got .stamp-mark{color:var(--paper);background:var(--c);border-color:var(--c);box-shadow:0 0 0 4px var(--paper),0 0 0 6px var(--c);animation:badge-in .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes badge-in{from{transform:scale(.4) rotate(-20deg)}}
 .stamp.got small{color:var(--accent);font-weight:600}
 .text-button{background:none;border:0;padding:0;font-size:12px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 
-/* Signal Box */
+/* Traffic router (Signal Box game) */
 .signal-game{background:var(--board);border-radius:24px;padding:20px;color:var(--paper)}
 .signal-hud{display:flex;flex-wrap:wrap;gap:10px 30px;font:600 11px var(--mono);letter-spacing:.14em;color:#8e8a80;padding:4px 6px 16px}
 .signal-hud b{color:var(--amber);font-size:16px;margin-left:6px;font-variant-numeric:tabular-nums;text-shadow:0 0 8px #ffb43a77}
@@ -138,13 +141,7 @@
 .pass p{margin:0;font-size:13px;opacity:.8}
 .pass-chip{position:absolute;top:20px;right:20px;width:34px;height:26px;border-radius:6px;background:linear-gradient(135deg,#ffe29a,#c9952d);box-shadow:inset 0 0 0 2px #0002}
 
-/* Lab */
-.playground{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:center}
-.playground-copy h2{margin:16px 0 22px}
-.playground-copy p{color:var(--muted);font-size:15px}
-.playground-hint{font:600 11px var(--mono)!important;letter-spacing:.12em;color:var(--accent)!important}
-
-/* Terminus */
+/* Egress (contact) */
 .contact{background:var(--ink);color:var(--paper);margin-top:40px}
 .contact-inner{max-width:1340px;margin:auto;padding:120px 5% 90px}
 .contact .eyebrow{color:var(--amber)}
@@ -159,7 +156,7 @@
 .contact-options button{background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px}
 
 @media(max-width:1000px){
-  .ticket-grid,.player,.playground{grid-template-columns:1fr}
+  .ticket-grid,.player{grid-template-columns:1fr}
   .inventory{position:static}
   .outcomes{grid-template-columns:repeat(3,1fr)}.outcome-source{grid-column:1/-1;text-align:left}
   .stamp-grid{grid-template-columns:repeat(3,1fr)}
@@ -167,7 +164,7 @@
 @media(max-width:700px){
   .journey-cta{grid-template-columns:1fr}
   .signal-game{padding:12px;border-radius:18px}.signal-hud{gap:6px 18px;font-size:10px}
-  .signal-stage{aspect-ratio:1000/520}.signal-train{font-size:10px;padding:5px 18px 5px 8px}
+  .signal-stage{aspect-ratio:auto;height:clamp(260px,78vw,320px)}.signal-train{font-size:10px;padding:5px 18px 5px 8px}
   .signal-overlay p{font-size:12px}
   .signal-points{grid-template-columns:repeat(2,1fr)}.signal-points kbd{display:none}
   .ticket{grid-template-columns:64px 1fr;--notch:12px;-webkit-mask:none;mask:none}
@@ -179,7 +176,7 @@
   .contact-inner{padding:80px 16px 64px}
   .skill-item p{margin-left:0}
 }
-@media(prefers-reduced-motion:reduce){.ticket,.pass,.stamp-hud.bump,.signal-stage.shake{transition:none;animation:none}}
+@media(prefers-reduced-motion:reduce){.ticket,.pass,.stamp-hud.bump,.signal-stage.shake,.stamp.got .stamp-mark{transition:none;animation:none}}
 
 /* Byelaws: rule cards that flip, and a definition-of-done checklist. */
 .rules{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:start}
