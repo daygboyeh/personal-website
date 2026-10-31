@@ -121,4 +121,4 @@ window.addEventListener('sparkburst', event => sparkBurst(event.detail?.x ?? inn
 
 // For the curious who open DevTools.
 console.log('%c● ADEGBOYE', 'font:700 22px Helvetica,Arial,sans-serif;color:#326f65');
-console.log('Looking under the hood? Good instinct. No framework, no build step. Just HTML, CSS, and vanilla JS.\nSecrets: try the terminal (`), click the logo five times, type "dns" or "yaml", or remember a certain cheat code. Each one earns a stamp.\nSay hello: loluadegboye@gmail.com');
+console.log('Looking under the hood? Good instinct. No framework, no build step. Just HTML, CSS, and vanilla JS.\nSecrets: try the terminal (`), click the logo five times, type "dns" or "yaml", or remember a certain cheat code. Each one unlocks an achievement.\nSay hello: loluadegboye@gmail.com');

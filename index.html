@@ -9,11 +9,11 @@
   <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Adebiyi Adegboye — Platform Engineering Team Lead"><meta name="twitter:description" content="Cloud platforms, Kubernetes and engineering leadership. AWS, Azure and enterprise delivery from London."><meta name="twitter:image" content="https://zealolu.com/assets/share-card.png">
   <title>Adebiyi Adegboye — Platform Engineering Team Lead</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="base.css?v=7"><link rel="stylesheet" href="hero.css?v=7"><link rel="stylesheet" href="stations.css?v=7"><link rel="stylesheet" href="together.css?v=7"><link rel="stylesheet" href="cluster.css?v=7"><link rel="stylesheet" href="intro.css?v=7"><link rel="stylesheet" href="fun.css?v=7"><link rel="stylesheet" href="map.css?v=7"><link rel="stylesheet" href="selfservice.css?v=7">
-  <script src="career.js?v=7" defer></script><script src="app.js?v=7" defer></script><script src="together.js?v=7" defer></script><script src="game.js?v=7" defer></script><script src="board.js?v=7" defer></script><script src="signal.js?v=7" defer></script><script src="rules.js?v=7" defer></script><script src="route.js?v=7" defer></script><script src="map.js?v=7" defer></script><script src="selfservice.js?v=7" defer></script><script src="cluster.js?v=7" defer></script><script src="fun.js?v=7" defer></script>
+  <link rel="stylesheet" href="base.css?v=8"><link rel="stylesheet" href="story.css?v=8"><link rel="stylesheet" href="stations.css?v=8"><link rel="stylesheet" href="together.css?v=8"><link rel="stylesheet" href="cluster.css?v=8"><link rel="stylesheet" href="intro.css?v=8"><link rel="stylesheet" href="fun.css?v=8"><link rel="stylesheet" href="map.css?v=8"><link rel="stylesheet" href="selfservice.css?v=8">
+  <script src="career.js?v=8" defer></script><script src="app.js?v=8" defer></script><script src="together.js?v=8" defer></script><script src="game.js?v=8" defer></script><script src="signal.js?v=8" defer></script><script src="rules.js?v=8" defer></script><script src="route.js?v=8" defer></script><script src="map.js?v=8" defer></script><script src="selfservice.js?v=8" defer></script><script src="story.js?v=8" defer></script><script src="cluster.js?v=8" defer></script><script src="fun.js?v=8" defer></script>
 </head>
 <body>
-  <script src="intro.js?v=7"></script>
+  <script src="intro.js?v=8"></script>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -45,30 +45,35 @@
   </nav>
 
   <main id="main">
-    <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <div class="eyebrow"><span class="status-dot"></span> CONTROL PLANE ONLINE · LONDON, UK</div>
-        <h1 id="hero-title">Adebiyi <span class="lime-word">Adegboye.</span></h1>
-        <p class="hero-intro">I build platforms. I lead teams.<br>I keep complex systems running.</p>
-        <p class="hero-description">Platform Engineering Team Lead with 8+ years in cloud, DevOps, and Kubernetes. AWS, Azure, and engineering leadership.</p><p class="hero-proof" aria-label="Selected results"><span><b>−30%</b> deployment time</span><span><b>−75%</b> manual configuration</span><span><b>−20%</b> cloud costs</span></p>
-        <div class="hero-actions"><a class="button primary" href="#quests">Explore my work <span aria-hidden="true">→</span></a><a class="button ghost" href="assets/Adebiyi_Adegboye_CV.pdf?v=4" download>View CV <span aria-hidden="true">↓</span></a></div>
+    <section class="story" id="top" aria-labelledby="hero-title">
+      <div class="story-stage" id="story-stage">
+        <canvas id="story-canvas" tabindex="0" aria-label="Interactive cluster. Left and right arrow keys orbit the view. Enter breaks a pod so you can watch it heal."></canvas>
+        <div class="story-hud" aria-hidden="true"><span class="hud-dot"></span><span class="hud-prompt">$</span><span id="story-hud-text">kubectl get pods -A</span></div>
+        <nav class="story-steps" aria-label="Story steps">
+          <button type="button" data-story-step aria-label="Intro"></button><button type="button" data-story-step aria-label="Step 1: contain"></button><button type="button" data-story-step aria-label="Step 2: package"></button><button type="button" data-story-step aria-label="Step 3: deliver"></button><button type="button" data-story-step aria-label="Step 4: migrate"></button><button type="button" data-story-step aria-label="Step 5: heal"></button><button type="button" data-story-step aria-label="Step 6: optimise"></button><button type="button" data-story-step aria-label="Step 7: lead"></button><button type="button" data-story-step aria-label="Step 8: you"></button>
+        </nav>
+        <p class="sr-only" id="story-status" role="status"></p>
       </div>
-      <div class="hero-board">
-        <div class="board" id="status-board">
-          <div class="board-head" aria-hidden="true"><span>CONTROL PLANE · LONDON-1</span><span class="board-clock" id="board-clock">--:--:--</span></div>
-          <div class="board-cols" aria-hidden="true"><span>NS</span><span>DEPLOYMENT</span><span>READY</span><span>STATUS</span></div>
-          <div class="board-rows" id="board-rows" aria-label="Cluster status. Each deployment links to a section.">
-            <a class="board-row line-cloud" href="#quests"><span class="c-ns">CLOUD</span><span class="c-svc">ARCHITECTURE</span><span class="c-ready">4/4</span><span class="c-status">RUNNING</span></a>
-            <a class="board-row line-plat" href="#experience"><span class="c-ns">PLAT</span><span class="c-svc">DELIVERY</span><span class="c-ready">3/3</span><span class="c-status">SYNCED</span></a>
-            <a class="board-row line-lead" href="#player"><span class="c-ns">LEAD</span><span class="c-svc">LEADERSHIP</span><span class="c-ready">2/2</span><span class="c-status">HEALTHY</span></a>
-            <a class="board-row line-build" href="#building"><span class="c-ns">BUILD</span><span class="c-svc">TOGETHER PARENTING</span><span class="c-ready">1/1</span><span class="c-status">BUILDING</span></a>
+      <div class="story-chapters">
+        <div class="story-chapter hero">
+          <div class="chapter-card">
+            <div class="eyebrow"><span class="status-dot"></span> PLATFORM ENGINEERING TEAM LEAD · LONDON</div>
+            <h1 id="hero-title">Adebiyi <span class="lime-word">Adegboye.</span></h1>
+            <p class="hero-intro">I take one container and make it run everywhere: AWS, Azure, OpenShift and Kubernetes. Then I build the team that keeps it running.</p>
+            <p class="hero-meta">8+ years · Gresham · AWS &amp; Terraform certified</p>
+            <p class="story-try"><span aria-hidden="true">●</span> Try it: drag the cluster, click a pod to break it.</p>
+            <div class="hero-actions"><a class="button primary" href="#quests">Explore my work <span aria-hidden="true">→</span></a><a class="button ghost" href="assets/Adebiyi_Adegboye_CV.pdf?v=4" download>View CV <span aria-hidden="true">↓</span></a></div>
+            <p class="story-scroll" aria-hidden="true">SCROLL TO ORCHESTRATE <span>↓</span></p>
           </div>
-          <div class="board-calling" aria-hidden="true"><div><span>RUNNING ON</span> AWS · AZURE · EKS · AKS · OPENSHIFT · KUBERNETES · TERRAFORM · HELM · ARGO CD · ISTIO · KAFKA · CASSANDRA · PROMETHEUS · GRAFANA · DATADOG · MENTORING · <span>RUNNING ON</span> AWS · AZURE · EKS · AKS · OPENSHIFT · KUBERNETES · TERRAFORM · HELM · ARGO CD · ISTIO · KAFKA · CASSANDRA · PROMETHEUS · GRAFANA · DATADOG · MENTORING ·</div></div>
         </div>
-        <div class="journey-cta">
-          <div class="journey-cta-copy"><span class="eyebrow">NAMESPACE / YOU</span><strong>Unlock all 12 achievements.</strong><p>Play the games, find the secrets, visit every service. Achievements unlock as you go.</p></div>
-          <div class="journey-cta-actions"><button class="button primary" type="button" data-open-journey>Achievements <span class="stamp-count" aria-hidden="true">0/12</span></button><a class="button ghost" href="#signal">Route some traffic <span aria-hidden="true">▶</span></a></div>
-        </div>
+        <article class="story-chapter"><div class="chapter-card"><div class="eyebrow">STEP 01 / CONTAIN</div><h2>It starts with<br><strong>one container.</strong></h2><p>One service, one image, and a team that needs it running in production.</p></div></article>
+        <article class="story-chapter"><div class="chapter-card"><div class="eyebrow">STEP 02 / PACKAGE</div><h2><span class="big-stat">−75%</span><strong>manual configuration.</strong></h2><p>Reusable Helm charts turn one container into a release anyone can install the same way, every time.</p></div></article>
+        <article class="story-chapter"><div class="chapter-card"><div class="eyebrow">STEP 03 / DELIVER</div><h2><span class="big-stat">−30%</span><strong>deployment time.</strong></h2><p>Optimised GitOps workflows and CI/CD pipelines carry every change from commit to cluster. Nobody copies YAML by hand.</p></div></article>
+        <article class="story-chapter"><div class="chapter-card"><div class="eyebrow">STEP 04 / MIGRATE</div><h2>43 services.<br><strong>10 environments. One weekend.</strong></h2><p>A phased on-premises-to-cloud migration for an enterprise customer: 19 core services and 24 microservices, cut over in a weekend with no issues on day one.</p></div></article>
+        <article class="story-chapter"><div class="chapter-card"><div class="eyebrow">STEP 05 / HEAL</div><h2><span class="big-stat">−20%</span><strong>downtime.</strong></h2><p>Istio on EKS with automatic retries. When a pod falls over, traffic routes around it and the platform recovers on its own. Go on, break one.</p></div></article>
+        <article class="story-chapter"><div class="chapter-card"><div class="eyebrow">STEP 06 / OPTIMISE</div><h2><span class="big-stat">−20%</span><strong>cloud costs.</strong></h2><p>Kubecost made the spend visible. Kubecost-led optimisation put the same platform on less infrastructure.</p></div></article>
+        <article class="story-chapter"><div class="chapter-card"><div class="eyebrow">STEP 07 / LEAD</div><h2>Then I make it<br><strong>a team sport.</strong></h2><p>I lead two engineers at Gresham: setting priorities, mentoring and reviewing designs, so the platform never depends on one person.</p></div></article>
+        <article class="story-chapter"><div class="chapter-card"><div class="eyebrow">STEP 08 / YOU</div><h2>Your platform<br><strong>is next.</strong></h2><p>Cloud platforms, engineering teams, or a delivery that has to go right the first time.</p><div class="hero-actions"><a class="button primary" href="#contact">Say hello <span aria-hidden="true">→</span></a><a class="button ghost" href="#experience">Keep scrolling <span aria-hidden="true">↓</span></a></div></div></article>
       </div>
     </section>
 

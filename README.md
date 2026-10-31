@@ -8,7 +8,10 @@ anonymized throughout the website and downloadable CV.
 The site is a running cluster. Each colour is a namespace of work (Cloud,
 Platform, Operations, Leadership), sections are services, and the visitor is a
 pod being scheduled who unlocks achievements. It is built to be played, not watched:
-- **Status board**: a live control-plane readout; each deployment links to a section.
+- **Scroll story** (the hero): a pinned, hand-rendered isometric cluster. Scrolling morphs it
+  through eight steps of the CV: one container, Helm, GitOps, the 43-service migration,
+  self-healing, cost, the team, and a wall of pods that says hi. Drag to orbit, click a pod
+  to break it and watch it heal; arrow keys and Enter do the same on the focused canvas.
 - **Service map**: a topology of every section, from ingress to egress, with "you are here"
   and visited services. Open it from the header Map button or press `M`. It is the
   section navigation on every screen size.
@@ -31,7 +34,7 @@ changes, so returning visitors don't run stale cached files.
 ## Files
 - index.html: page content and accessible navigation
 - base.css: design tokens, namespace colours, header, service rail, dialogs, footer
-- hero.css, board.js: hero and control-plane status board
+- story.css, story.js: the scroll story and its isometric canvas renderer (no libraries)
 - stations.css: section styling (traffic router, work cards, career, policies, certs, contact)
 - route.js: service rail tracking and the scroll progress bar
 - map.js, map.css: the service map dialog
