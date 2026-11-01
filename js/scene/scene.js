@@ -1,7 +1,7 @@
 // The cluster scene: one fixed WebGL canvas behind all five acts. Each "stop" pins a pod
 // layout and a camera to an element on the page; scrolling tweens pods and camera between
-// stops. The one interaction: break a pod (click empty space, or the HUD button) and watch
-// it heal. Decorative only: every fact is in the page text.
+// stops. Missions can temporarily "focus" it on a layout of their own. Breaking a pod is
+// reported to the game engine. Decorative only: every fact is in the page text.
 import * as THREE from '../../vendor/three.module.min.js';
 import { POD_COUNT, PLATE_COUNT, COLOURS, podNoise, layouts } from './layouts.js';
 import { isMotionPaused, onMotionChange } from '../motion.js';
@@ -21,15 +21,20 @@ const STOP_SPECS = [
   ['#contact', 'hello', { dist: 27, elev: 0.16, yaw: 0, ty: 2.1 }, 1, 0.5, 'right']
 ];
 const HEAL_MS = 1600;
+// Camera and framing for layouts a mission shows on demand.
+const FOCUS_VIEWS = {
+  cutover: { cam: { dist: 34, elev: 0.75, yaw: -0.6, ty: 0 }, opacity: 0.55, mobileOpacity: 0.3, side: 'centre' },
+  togetherMerged: { cam: { dist: 22, elev: 0.62, yaw: -0.6, ty: 0.6 }, opacity: 1, mobileOpacity: 0.3, side: 'right' }
+};
 
-export function startScene() {
+export function startScene(engine) {
   const host = document.querySelector('.scene');
   const canvas = document.getElementById('scene-canvas');
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
   } catch {
-    return false; // No WebGL: the page already works as text.
+    return null; // No WebGL: the page already works as text.
   }
   const narrowQuery = matchMedia('(max-width: 760px)');
   const lowPower = (navigator.hardwareConcurrency || 8) <= 4;
@@ -89,6 +94,8 @@ export function startScene() {
   let width = 0, height = 0;
   let clock = 0, lastFrame = 0, frame = 0, visible = true, firstFrame = true;
   let userYaw = 0, yawVelocity = 0, lastDragAt = -1e9;
+  let focus = null; // { name, params, view } while a mission is driving the scene
+  const camState = { dist: 40, elev: 0.62, yaw: -0.75, ty: 0, shift: 1 };
 
   const clamp01 = value => Math.min(1, Math.max(0, value));
   const ease = value => value * value * (3 - 2 * value);
@@ -116,9 +123,17 @@ export function startScene() {
     lastFrame = now;
     if (!paused) clock += delta / 1000;
     const narrow = narrowQuery.matches;
-    const { index, blend } = stopPosition();
-    const from = stops[index], to = stops[Math.min(index + 1, stops.length - 1)];
-    const a = from.layout(clock), b = to.layout(clock);
+    const position = stopPosition();
+    const { index } = position;
+    let { blend } = position;
+    let from = stops[index], to = stops[Math.min(index + 1, stops.length - 1)];
+    let a = from.layout(clock), b = to.layout(clock);
+    if (focus) {
+      // A mission is driving: hold its layout and framing regardless of scroll.
+      const view = { ...focus.view, layout: null };
+      a = b = layouts[focus.name](clock, focus.params);
+      from = to = view; blend = 1;
+    }
     const follow = paused || firstFrame ? 1 : 0.14;
     firstFrame = false;
 
@@ -159,15 +174,17 @@ export function startScene() {
     // Camera: orbit the target; idle sway when motion is on; drag adds to the yaw.
     if (!paused) { userYaw += yawVelocity; yawVelocity *= 0.92; }
     const sway = paused || now - lastDragAt < 3000 ? 0 : Math.sin(clock * 0.18) * 0.12;
-    const cam = {};
-    for (const key of ['dist', 'elev', 'yaw', 'ty']) cam[key] = lerp(from.cam[key], to.cam[key], blend);
+    // The camera eases toward its target, so focus changes glide instead of cutting.
+    const sideShift = (stop => stop.side === 'right' ? 1 : 0);
+    for (const key of ['dist', 'elev', 'yaw', 'ty']) camState[key] = lerp(camState[key], lerp(from.cam[key], to.cam[key], blend), paused ? 1 : 0.12);
+    camState.shift = lerp(camState.shift, lerp(sideShift(from), sideShift(to), blend), paused ? 1 : 0.12);
+    const cam = camState;
     const yaw = cam.yaw + userYaw + sway;
     const dist = cam.dist * (narrow ? 1.25 : 1);
     camera.position.set(Math.sin(yaw) * Math.cos(cam.elev) * dist, cam.ty + Math.sin(cam.elev) * dist, Math.cos(yaw) * Math.cos(cam.elev) * dist);
     camera.lookAt(0, cam.ty, 0);
     // Push the scene right of the text on wide screens, and up on phones.
-    const sideShift = (stop => stop.side === 'right' ? 1 : 0);
-    const shift = lerp(sideShift(from), sideShift(to), blend);
+    const shift = camState.shift;
     if (narrow) camera.setViewOffset(width, height, 0, height * 0.2 * shift * (index === 0 ? 1 - blend : 0), width, height);
     else camera.setViewOffset(width, height, -width * 0.24 * shift, 0, width, height);
     camera.updateProjectionMatrix();
@@ -180,52 +197,35 @@ export function startScene() {
     pulse.scale.setScalar(1 + pulseAge / 300);
 
     renderer.render(scene, camera);
-    const animating = !paused || brokenAt.some(at => now - at < HEAL_MS) || pulseAge < 900 || Math.abs(yawVelocity) > 1e-4;
+    const settling = Math.abs(camState.dist - lerp(from.cam.dist, to.cam.dist, blend)) > 0.01;
+    const animating = !paused || settling || brokenAt.some(at => now - at < HEAL_MS) || pulseAge < 900 || Math.abs(yawVelocity) > 1e-4;
     if (visible && animating) queue();
   }
   function queue() { if (!frame) frame = requestAnimationFrame(render); }
 
-  // --- The interaction -------------------------------------------------------------------
-  const readyText = document.getElementById('hud-ready');
-  const uptimeText = document.getElementById('hud-uptime');
-  const status = document.getElementById('scene-status');
-  const sessionStart = performance.now();
-  let restarts = 0, downtime = 0;
+  // --- The interaction: crashes are reported to the game engine -------------------------
   function visiblePods() {
     const { index, blend } = stopPosition();
-    const layout = (blend < 0.5 ? stops[index] : stops[Math.min(index + 1, stops.length - 1)]).layout(clock);
+    const layout = focus ? layouts[focus.name](clock, focus.params) : (blend < 0.5 ? stops[index] : stops[Math.min(index + 1, stops.length - 1)]).layout(clock);
     return layout.pods.map((spec, podIndex) => spec.visible ? podIndex : -1).filter(podIndex => podIndex >= 0);
   }
   function breakPod(podIndex) {
-    if (podIndex < 0 || performance.now() - brokenAt[podIndex] < HEAL_MS) return;
+    if (podIndex === undefined || podIndex < 0 || performance.now() - brokenAt[podIndex] < HEAL_MS) return;
     const now = performance.now();
     brokenAt[podIndex] = now;
-    restarts++; downtime += HEAL_MS * 0.7;
     const state = current[podIndex];
     pulse.position.set(state.x, 0.02, state.y);
     pulse.userData.at = now;
-    status.textContent = `Pod ${podIndex + 1} crashed. Restarting.`;
-    updateHud();
-    setTimeout(() => { status.textContent = `Pod ${podIndex + 1} is back. Restarts: ${restarts}.`; updateHud(); }, HEAL_MS);
+    engine.emit('pod:broken', { pod: podIndex + 1 });
+    setTimeout(() => engine.emit('pod:healed', { pod: podIndex + 1 }), HEAL_MS);
     queue();
   }
-  function updateHud() {
-    const now = performance.now();
-    const down = brokenAt.filter(at => now - at < HEAL_MS * 0.7).length;
-    const total = visiblePods().length;
-    readyText.textContent = `${total - down}/${total} ready`;
-    uptimeText.textContent = `uptime ${(100 * (1 - downtime / (POD_COUNT * Math.max(1, now - sessionStart)))).toFixed(3)}% · ${restarts} restarts`;
-  }
   pulse.userData.at = -1e9;
-  document.getElementById('break-pod').addEventListener('click', () => {
-    const candidates = visiblePods();
-    breakPod(candidates[Math.floor(Math.random() * candidates.length)]);
-  });
 
   // Clicks and drags on empty background reach the scene; anything readable or interactive doesn't.
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
-  const ignore = 'a,button,input,label,dialog,.case,.beat h3,.beat p,p,h1,h2,h3,li,dl,blockquote,.site-header,.scene-hud';
+  const ignore = 'a,button,input,label,dialog,.case,.beat h3,.beat p,p,h1,h2,h3,li,dl,blockquote,.site-header,.pager,.product-card';
   let drag = null;
   document.addEventListener('pointerdown', event => {
     if (event.button !== 0 || event.target.closest(ignore)) return;
@@ -258,10 +258,11 @@ export function startScene() {
   new ResizeObserver(() => { measure(); queue(); }).observe(document.body);
   document.addEventListener('visibilitychange', () => { visible = !document.hidden; lastFrame = 0; if (visible) queue(); });
   onMotionChange(() => { lastFrame = 0; queue(); });
-  setInterval(() => { if (visible) updateHud(); }, 1000);
-  updateHud();
   document.documentElement.classList.add('scene-on');
-  document.getElementById('scene-hud').hidden = false;
   queue();
-  return true;
+  return {
+    breakRandomPod() { const candidates = visiblePods(); breakPod(candidates[Math.floor(Math.random() * candidates.length)]); },
+    focus(name, params = {}) { focus = { name, params, view: FOCUS_VIEWS[name] }; queue(); },
+    clearFocus() { focus = null; queue(); }
+  };
 }

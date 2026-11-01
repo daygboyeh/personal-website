@@ -67,6 +67,9 @@ Left out pending confirmation: −30% deployment time, −75% manual configurati
 - **Contact:** loluadegboye@gmail.com · LinkedIn · GitHub · CV (PDF) `[SITE]`
 - **Scene (Stage B):** the "HI!" wall
 
+## The on-call game (interaction layer)
+One framework (js/game/engine.js) with five missions, one per act: break a pod, roll out the proof, run the cutover, find the bottleneck, bring it together. The finale is a handover report in Contact. **Illustrative, and labelled as such on the page:** the cutover phase times and log lines, and the loader's stage split. Real `[CV]`: 10 environments, 19 core + 24 microservices, weekend cutover, no issues on day one, ~65 s → ~5 s per 1,000 records via audit/lineage overhead.
+
 ## Cut
 Signal Box / traffic router, the physics pod cluster, flip cards, the DoD checklist UI, self-service provisioner, service map, achievements, route rail, Together demo, boot intro, ticker.
 **Kept:** the terminal (backtick key), the motion toggle, the skip link.

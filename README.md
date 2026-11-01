@@ -16,9 +16,25 @@ cluster scene loads behind all five acts. Each act (and each proof beat) pins a 
 layout and a camera; scrolling morphs between them: the namespace city, one container,
 a Helm release, the 43-service migration, a self-healing mesh, the ~13× data loader,
 three towers for leadership, a career skyline, and a wall that says HI!. The one
-interaction: click a pod (or the HUD's "Break a pod" button) and watch it crash and
+interaction: click a pod (or the pager's "Break a pod" button) and watch it crash and
 heal. No WebGL, reduced motion or the motion toggle: the scene holds still or stays
 away, and the text carries everything. The only hidden extra is a terminal (backtick key).
+
+## The on-call game
+Every interaction belongs to one game. The visitor goes on call for the platform, and
+each act has one mission:
+1. **Break a pod** (hero): crash a pod and watch it heal.
+2. **Roll out the proof**: read all five proof beats.
+3. **Run the cutover** (Work): replay the weekend migration across 10 environments.
+4. **Find the bottleneck** (Work): profile the data loader and tune the slow stage.
+5. **Bring it together** (Now building): merge the care clusters.
+
+Contact ends the shift with a handover report and an email button. The pager (bottom
+left) shows progress and the error budget, and its mission list doubles as page
+navigation. Every mission works without WebGL (add `?noscene` to the URL to test that)
+and steps rather than animates when motion is paused. The cutover log and the loader's
+stage split are labelled illustrative; the facts they illustrate are from the CV.
+Progress is kept in this browser only (`ade-shift-v1`) and the page works without it.
 
 ## Run locally
 From this directory, run:
@@ -40,7 +56,11 @@ each other without a query, so _headers asks browsers to revalidate them.
 - js/terminal.js, js/toast.js: the terminal and status messages
 - js/scene/scene.js: the three.js scene, scroll stops, camera and break-a-pod
 - js/scene/layouts.js: pod layouts per stop (pure data)
-- css/scene.css: the fixed scene layer and its HUD
+- css/scene.css: the fixed scene layer
+- js/game/engine.js: the game framework: missions, shift state, events, announcements
+- js/game/hud.js: the pager (status, mission list as navigation, rollout bar)
+- js/game/missions/: one module per mission, plus the handover report
+- css/game.css: pager, mission blocks and handover
 - vendor/three.module.min.js: three.js r160 (MIT), pinned and self-hosted
 - fonts/: Inter Tight and JetBrains Mono variable woff2, Latin subset (SIL OFL)
 - docs/rebuild-outline.md: the content outline, with a source for every claim

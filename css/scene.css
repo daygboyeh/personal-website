@@ -7,6 +7,7 @@
 main,.site-footer{position:relative;z-index:1}
 /* Acts become transparent so the scene shows through; panels keep their own backgrounds. */
 .scene-on .act + .act{border-top-color:transparent}
+.scene-on .case{background:linear-gradient(180deg,#12151cee,#0b0d12e6);backdrop-filter:blur(6px)}
 .scene-on .beats{max-width:min(560px,46%)}
 /* Each beat gets most of a screen, so its layout has time on stage. */
 .scene-on .beat{min-height:72svh;align-content:center}
@@ -15,16 +16,10 @@ main,.site-footer{position:relative;z-index:1}
 .hero-try{font:500 var(--t-xs) var(--font-mono);color:var(--plat);margin-bottom:var(--s-3)}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-.scene-hud{position:fixed;left:var(--s-4);bottom:var(--s-4);z-index:40;display:flex;align-items:center;gap:var(--s-3);padding:6px 6px 6px 12px;border:1px solid var(--line-strong);border-radius:999px;background:#0b0d12d9;backdrop-filter:blur(10px);font:500 11px var(--font-mono);color:var(--text-dim)}
-.scene-hud[hidden]{display:none}
-.hud-dot{width:8px;height:8px;border-radius:50%;background:var(--plat);box-shadow:0 0 10px var(--plat)}
-#hud-ready{color:var(--text)}
-#break-pod{border:1px solid #ff4d4d66;border-radius:999px;background:#ff4d4d1a;color:#ffb0b0;padding:6px 12px;font:600 11px var(--font-mono)}
-#break-pod:hover{background:#ff4d4d33;color:#fff}
 
 @media(max-width:900px){.scene-on .beat{min-height:60svh}.scene-on .beats,.scene-on .act-contact>*{max-width:none}}
 @media(max-width:760px){
   .scene-on .act-hero{justify-content:flex-end;padding-top:46svh}
-  .hud-uptime,.hero-try{display:none}
+  .hero-try{display:none}
 }
 @media(prefers-reduced-motion:reduce){.scene{transition:none}}

@@ -10,8 +10,8 @@
   <title>Adebiyi Adegboye — Platform Engineering Team Lead</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/inter-tight-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/tokens.css?v=10"><link rel="stylesheet" href="css/layout.css?v=10"><link rel="stylesheet" href="css/acts.css?v=11"><link rel="stylesheet" href="css/scene.css?v=11">
-  <script type="module" src="js/main.js?v=11"></script>
+  <link rel="stylesheet" href="css/tokens.css?v=12"><link rel="stylesheet" href="css/layout.css?v=12"><link rel="stylesheet" href="css/acts.css?v=12"><link rel="stylesheet" href="css/scene.css?v=12"><link rel="stylesheet" href="css/game.css?v=12">
+  <script type="module" src="js/main.js?v=12"></script>
 </head>
 <body>
   <div class="scene" aria-hidden="true"><canvas id="scene-canvas"></canvas></div>
@@ -27,7 +27,18 @@
       <a class="button button-small" href="#contact">Get in touch</a>
     </div>
   </header>
-  <div class="scene-hud" id="scene-hud" hidden><span class="hud-dot" aria-hidden="true"></span><span id="hud-ready">0/0 ready</span><span class="hud-uptime" id="hud-uptime">uptime 100.000%</span><button type="button" id="break-pod">Break a pod</button></div>
+  <div class="pager" id="pager" hidden>
+    <div class="pager-panel" id="pager-panel" hidden>
+      <p class="pager-title">Your on-call shift</p>
+      <div class="rollout"><span>Proof rollout</span><span class="rollout-track" aria-hidden="true"><span id="rollout-fill"></span></span><span id="rollout-pct">0%</span></div>
+      <ol class="mission-list" id="mission-list" aria-label="Missions"></ol>
+      <button class="text-button" type="button" id="shift-reset">Reset shift</button>
+    </div>
+    <div class="pager-bar">
+      <button class="pager-toggle" type="button" id="pager-toggle" aria-expanded="false" aria-controls="pager-panel"><span class="hud-dot" aria-hidden="true"></span><span>On call</span><span class="pager-count" id="pager-count">0/5</span><span class="pager-budget" id="pager-budget">budget 100%</span><span class="pager-caret" aria-hidden="true">▴</span></button>
+      <button type="button" id="break-pod">Break a pod</button>
+    </div>
+  </div>
 
   <main id="main">
     <!-- Act 1 · Hero -->
@@ -36,6 +47,7 @@
       <h1 id="hero-title">Adebiyi<br>Adegboye</h1>
       <p class="hero-line">I build cloud platforms, and the teams that run them.</p>
       <p class="hero-try" hidden>Click a pod to break it. It heals itself.</p>
+      <div class="pod-strip" id="pod-strip" hidden aria-hidden="true"></div>
       <p class="hero-meta">8+ years in cloud, DevOps and Kubernetes <span aria-hidden="true">·</span> AWS · Azure · OpenShift · Kubernetes</p>
       <div class="actions"><a class="button" href="#contact">Get in touch <span aria-hidden="true">→</span></a><a class="button button-ghost" href="assets/Adebiyi_Adegboye_CV.pdf?v=4" download>Download CV <span aria-hidden="true">↓</span></a></div>
     </section>
@@ -60,6 +72,12 @@
         <p class="case-tag">Case study · Enterprise migration</p>
         <h3 id="case-migration">On-premises to cloud, in one weekend.</h3>
         <dl class="case-facts"><div><dt>Services</dt><dd>19 core + 24 micro</dd></div><div><dt>Environments</dt><dd>10</dd></div><div><dt>Cutover</dt><dd>One weekend</dd></div><div><dt>Day one</dt><dd>No issues</dd></div></dl>
+        <div class="mission-block game-only" id="cutover">
+          <div class="mission-head"><span class="mission-tag">Mission · Run the cutover</span><span class="mission-note">Illustrative replay. The real runbook stays private.</span></div>
+          <div class="replay-row"><span class="replay-clock" id="cutover-clock">Fri 18:00</span><ol class="env-strip" id="env-strip" aria-label="0 of 10 environments on cloud"></ol></div>
+          <p class="mission-log" id="cutover-log">Ten environments, one weekend. Ready when you are.</p>
+          <button class="button button-small" type="button" id="cutover-run">Run the cutover <span aria-hidden="true">▶</span></button>
+        </div>
         <div class="case-body">
           <section><h4>Context</h4><p>An enterprise customer running a mission-critical financial-services platform needed to move from on-premises infrastructure to the cloud, without the business noticing.</p></section>
           <section><h4>Decisions</h4><ul><li><strong>Phased, not big-bang.</strong> Services moved in stages, so each step could be proven before the next.</li><li><strong>Package every service with Helm.</strong> One way to install anything, everywhere.</li><li><strong>Automate every deployment.</strong> All ten environments were built the same way, so the last one held no surprises.</li><li><strong>Readiness as a shared job.</strong> Sizing, security and go-live readiness were worked through with the customer’s engineers and programme stakeholders.</li></ul></section>
@@ -72,6 +90,13 @@
         <p class="case-tag">Case study · Production performance</p>
         <h3 id="case-loader">The data loader that got 13× faster.</h3>
         <dl class="case-facts"><div><dt>Before</dt><dd>~1,000 records / 65 s</dd></div><div><dt>After</dt><dd>~1,000 records / 5 s</dd></div><div><dt>Change</dt><dd>~13× throughput</dd></div></dl>
+        <div class="mission-block game-only" id="bottleneck">
+          <div class="mission-head"><span class="mission-tag">Mission · Find the bottleneck</span><span class="mission-note">Illustrative stage split. The cause and the before and after are real.</span></div>
+          <div class="gauge"><span class="gauge-label">Time per 1,000 records</span><strong id="loader-time">~65 s</strong><span class="gauge-track" aria-hidden="true"><span id="loader-fill"></span></span></div>
+          <ol class="profile-stages" id="profile-stages" aria-label="Loader stages"></ol>
+          <p class="mission-log" id="bottleneck-log">Something is slow. Guess and tune a stage, or profile first.</p>
+          <button class="button button-small button-ghost" type="button" id="profile-run">Profile the loader <span aria-hidden="true">⌕</span></button>
+        </div>
         <div class="case-body">
           <section><h4>Context</h4><p>A high-volume data-loader workload on a financial-data platform was taking about 65 seconds for every thousand records.</p></section>
           <section><h4>Decisions</h4><ul><li><strong>Measure before changing anything.</strong> The time wasn’t where it looked like it would be: it was in audit and lineage overhead.</li><li><strong>Tune, don’t rewrite.</strong> Adjusting the workload configuration fixed the bottleneck without touching the service’s design.</li></ul></section>
@@ -103,6 +128,7 @@
           <div><strong>Together</strong><span class="product-status"><span class="live-dot" aria-hidden="true"></span> In development</span></div>
         </div>
         <ul class="stack-chips" aria-label="Product technology"><li>React Native &amp; Expo</li><li>Supabase</li><li>Offline-first</li></ul>
+        <div class="mission-inline game-only"><button class="button button-small button-ghost" type="button" id="together-run" aria-pressed="false">Bring it together <span aria-hidden="true">↻</span></button><p class="mission-log" id="together-status" role="status">Sleep, feeding and milestones, each on their own.</p></div>
         <div class="actions"><a class="button" href="https://together-parenting.com/" target="_blank" rel="noopener noreferrer">Explore Together Parenting <span aria-hidden="true">↗</span></a></div>
       </div>
     </section>
@@ -161,6 +187,12 @@
       <p class="act-intro">Cloud platforms, engineering teams, or a delivery that has to go right the first time.</p>
       <div class="actions"><a class="button" href="mailto:loluadegboye@gmail.com">loluadegboye@gmail.com <span aria-hidden="true">→</span></a><button class="button button-ghost" type="button" id="copy-email" hidden>Copy email</button></div>
       <ul class="contact-links"><li><a href="https://www.linkedin.com/in/adebiyi-adegboye" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li><li><a href="https://github.com/daygboyeh" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li><li><a href="assets/Adebiyi_Adegboye_CV.pdf?v=4" download>CV (PDF) ↓</a></li></ul>
+      <div class="handover game-only" aria-labelledby="handover-title">
+        <p class="mission-tag" id="handover-title">Shift handover</p>
+        <dl class="handover-stats"><div><dt>Missions</dt><dd id="ho-missions">0/5</dd></div><div><dt>Pods restarted</dt><dd id="ho-restarts">0</dd></div><div><dt>Error budget left</dt><dd id="ho-budget">100%</dd></div></dl>
+        <p class="mission-log" id="ho-note"></p>
+        <a class="button button-small" id="ho-send" href="mailto:loluadegboye@gmail.com">Hand over to Adebiyi <span aria-hidden="true">→</span></a>
+      </div>
     </section>
   </main>
 
@@ -171,7 +203,7 @@
     <div class="terminal-output" id="terminal-output" aria-live="polite"><p>Type <strong>help</strong> to see what’s here. Some commands aren’t listed.</p></div>
     <form id="terminal-form"><label for="terminal-input">$</label><input id="terminal-input" autocomplete="off" spellcheck="false" maxlength="100"><button type="submit" aria-label="Run command">↵</button></form>
   </dialog>
-  <p class="sr-only" id="scene-status" role="status"></p>
+  <p class="sr-only" id="game-status" role="status" aria-live="polite"></p>
   <div class="toast" id="toast" role="status"></div>
 </body>
 </html>

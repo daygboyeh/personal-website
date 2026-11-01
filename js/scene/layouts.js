@@ -57,6 +57,16 @@ function migrate() {
   });
   return { pods: fill(services), plates: Array.from({ length: 10 }, (_, environment) => [-6 + (environment % 5) * 3, environment < 5 ? -1.6 : 1.6, 2.5, 2.5]) };
 }
+// The cutover replay: the same 10 environments, grey (on-premises) until their phase moves
+// them to cloud. `progress` runs 0 → 1 as the replay advances.
+function cutover(time, { progress = 0 } = {}) {
+  const { pods, plates } = migrate();
+  const moved = Math.round(progress * 10);
+  return {
+    pods: pods.map((spec, index) => index < 43 && index % 10 >= moved ? { ...spec, colour: COLOURS.steel, h: spec.h * 0.8 } : spec),
+    plates
+  };
+}
 // A mesh of services: pods crash in turn and come back on their own.
 function heal(time) {
   return {
@@ -78,6 +88,15 @@ function together() {
   const pods = corners.flatMap(([cx, cy, colour], group) => Array.from({ length: 6 }, (_, index) => pod(cx - 0.6 + (index % 2) * 1.2, cy - 1.2 + Math.floor(index / 2) * 1.2, 0, 0.9, 0.5 + podNoise[group * 6 + index] * 0.9, colour)));
   pods.push(pod(0, 0, 0, 1.8, 2.2, COLOURS.care));
   return { pods: fill(pods), plates: [...corners.map(([cx, cy]) => [cx, cy, 2.8, 4]), [0, 0, 2.8, 2.8]] };
+}
+// Together, merged: the three care clusters gather in a ring around the shared pod.
+function togetherMerged() {
+  const colours = [COLOURS.lead, COLOURS.cloud, COLOURS.plat];
+  const ring = Array.from({ length: 18 }, (_, index) => {
+    const angle = index / 18 * Math.PI * 2;
+    return pod(Math.cos(angle) * 2.4, Math.sin(angle) * 2.4, 0, 0.8, 0.7 + podNoise[index] * 0.5, colours[Math.floor(index / 6)]);
+  });
+  return { pods: fill([...ring, pod(0, 0, 0, 1.8, 2.6, COLOURS.care)]), plates: [[0, 0, 6.6, 6.6]] };
 }
 // A lead and two engineers.
 function lead() {
@@ -105,4 +124,4 @@ function hello() {
   return { pods: fill(pods), plates: [] };
 }
 
-export const layouts = { city, contain, packaged, migrate, heal, throughput, together, lead, career, hello };
+export const layouts = { city, contain, packaged, migrate, cutover, heal, throughput, together, togetherMerged, lead, career, hello };

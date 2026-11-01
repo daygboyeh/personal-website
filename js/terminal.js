@@ -13,7 +13,7 @@ const fortunes = [
   'Measure before you change anything. The time is never where you think.'
 ];
 const replies = {
-  help: 'proof       → the numbers\nwork        → two case studies\nleadership  → how I lead\nrecord      → experience and certifications\ncontact     → get in touch\ncv          → download my CV\ngithub      → my GitHub\nclear       → clear the screen\nexit        → close',
+  help: 'status      → your on-call shift\nmissions    → what’s left to do\nproof       → the numbers\nwork        → two case studies\nleadership  → how I lead\nrecord      → experience and certifications\ncontact     → get in touch\ncv          → download my CV\ngithub      → my GitHub\nclear       → clear the screen\nexit        → close',
   whoami: 'visitor · namespace/you · role: curious',
   about: 'Platform Engineering Team Lead at Gresham Technologies, London. 8+ years in cloud, DevOps and Kubernetes.',
   ls: 'proof/  work/  leadership/  record/  Adebiyi_Adegboye_CV.pdf',
@@ -28,7 +28,7 @@ const replies = {
   contact: `Email: ${EMAIL}`
 };
 
-export function initTerminal() {
+export function initTerminal(engine) {
   const dialog = document.getElementById('terminal-dialog');
   const output = document.getElementById('terminal-output');
   const form = document.getElementById('terminal-form');
@@ -61,7 +61,11 @@ export function initTerminal() {
     print(`$ ${raw}`);
     if (command === 'clear') { output.replaceChildren(); return; }
     if (command === 'exit') { dialog.close(); return; }
-    if (command === 'fortune') print(fortunes[Math.floor(Math.random() * fortunes.length)]);
+    if (command === 'status') {
+      const { done, total, restarts, budget } = engine.stats();
+      print(`on call · ${done}/${total} missions · ${restarts} pods restarted · error budget ${budget.toFixed(1)}%`);
+    } else if (command === 'missions') print(engine.list().map((mission, index) => `${mission.done ? '✓' : '○'} ${index + 1}. ${mission.title}${mission.done ? '' : ` → ${mission.hint}`}`).join('\n'));
+    else if (command === 'fortune') print(fortunes[Math.floor(Math.random() * fortunes.length)]);
     else if (command === 'uptime') print(`up ${Math.round(performance.now() / 1000)}s on this page · load average: curious`);
     else if (sections[command]) {
       dialog.close();
