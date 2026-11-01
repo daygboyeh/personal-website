@@ -45,6 +45,11 @@ Left out pending confirmation: −30% deployment time, −75% manual configurati
 - Backstage self-service provisioning, in progress, for delivery consistency and less manual build effort. `[CV]`
 - AWS EKS, Azure AKS and ROSA/OpenShift environments spanning networking, identity, storage, secrets, monitoring and deployment lifecycle. `[CV]`
 
+## Now building (`#building`)
+- **Together Parenting** `[SITE]`: "Alongside my platform work, we're building Together Parenting: an app to help families keep everyday care, development and shared caregiving connected." Sleep, feeding, growth and milestones in one shared place.
+- App icon (a 160px copy of assets/together-app-icon.png), "In development", stack: React Native & Expo, Supabase, offline-first. Link to together-parenting.com.
+- **Scene:** three care clusters around one shared pod.
+
 ## Act 4 · Leadership (`#leadership`)
 - **Opening (his words):** the "platform janitor" passage. "I come in quietly, clean things up, set up self-healing systems, and leave things better than I found them." `[SITE]`
 - **How I lead** `[CV]`: work allocation, mentoring, architecture reviews and delivery planning, balanced against customer and commercial priorities; incident management; stakeholder engagement.
@@ -59,7 +64,6 @@ Left out pending confirmation: −30% deployment time, −75% manual configurati
 - **TSL Logistics:** Software Engineer, Feb 2019 to Oct 2020; Software Engineering Intern, Mar 2018 to Jan 2019 `[CV]`
 - **Education:** MSc Advanced Computer Science, Leeds Beckett University; BSc Hydrology, University of Agriculture, Abeokuta `[CV + SITE]`
 - **Certifications:** AWS Solutions Architect – Associate; AWS Developer – Associate; HashiCorp Terraform Associate `[CV]`
-- **Now building:** Together Parenting, an app to keep family care connected `[SITE]`
 - **Contact:** loluadegboye@gmail.com · LinkedIn · GitHub · CV (PDF) `[SITE]`
 - **Scene (Stage B):** the "HI!" wall
 

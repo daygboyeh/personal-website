@@ -49,8 +49,8 @@ each other without a query, so _headers asks browsers to revalidate them.
 All decorative motion respects reduced-motion preferences and the header toggle.
 
 ## Now building
-The Record act links to Together Parenting, a product we are building for shared
-family care.
+A "Now building" section between Work and Leadership features Together Parenting,
+a product we are building for shared family care, with its own scene.
 
 ## Private hosted version
 https://adebiyi-adegboye-platform.zeal22.chatgpt.site

@@ -10,8 +10,8 @@
   <title>Adebiyi Adegboye — Platform Engineering Team Lead</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/inter-tight-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/tokens.css?v=10"><link rel="stylesheet" href="css/layout.css?v=10"><link rel="stylesheet" href="css/acts.css?v=10"><link rel="stylesheet" href="css/scene.css?v=10">
-  <script type="module" src="js/main.js?v=10"></script>
+  <link rel="stylesheet" href="css/tokens.css?v=10"><link rel="stylesheet" href="css/layout.css?v=10"><link rel="stylesheet" href="css/acts.css?v=11"><link rel="stylesheet" href="css/scene.css?v=11">
+  <script type="module" src="js/main.js?v=11"></script>
 </head>
 <body>
   <div class="scene" aria-hidden="true"><canvas id="scene-canvas"></canvas></div>
@@ -19,7 +19,7 @@
   <header class="site-header">
     <a href="#top" class="brand" aria-label="Adebiyi Adegboye, back to top"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 17.5L17.5 6.5"/><circle cx="6.5" cy="17.5" r="3.4"/><circle cx="17.5" cy="6.5" r="3.4"/></svg></span><span class="brand-name">Adebiyi <b>Adegboye</b></span></a>
     <nav class="site-nav" aria-label="Main">
-      <a href="#proof">Proof</a><a href="#work">Work</a><a href="#leadership">Leadership</a><a href="#record">Record</a>
+      <a href="#proof">Proof</a><a href="#work">Work</a><a href="#building">Building</a><a href="#leadership">Leadership</a><a href="#record">Record</a>
     </nav>
     <div class="header-actions">
       <button class="icon-button terminal-toggle" type="button" id="open-terminal" aria-label="Open terminal" hidden>&gt;_</button>
@@ -91,6 +91,22 @@
       </section>
     </section>
 
+    <!-- Now building -->
+    <section class="act act-building" id="building" aria-labelledby="building-title">
+      <div class="building-copy">
+        <p class="kicker">Now building · Side project</p>
+        <h2 id="building-title">Parenting works<br>better together.</h2>
+        <p class="act-intro">Alongside my platform work, we’re building <strong>Together Parenting</strong>: an app to help families keep everyday care, development and shared caregiving connected.</p>
+        <p>From sleep and feeding to growth and milestones, we’re bringing the moving parts of family life into one shared place.</p>
+        <div class="product-card">
+          <img src="assets/together-app-icon-160.png" alt="Together Parenting app icon" width="64" height="64" loading="lazy">
+          <div><strong>Together</strong><span class="product-status"><span class="live-dot" aria-hidden="true"></span> In development</span></div>
+        </div>
+        <ul class="stack-chips" aria-label="Product technology"><li>React Native &amp; Expo</li><li>Supabase</li><li>Offline-first</li></ul>
+        <div class="actions"><a class="button" href="https://together-parenting.com/" target="_blank" rel="noopener noreferrer">Explore Together Parenting <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </section>
+
     <!-- Act 4 · Leadership -->
     <section class="act act-leadership" id="leadership" aria-labelledby="leadership-title">
       <header class="act-head"><p class="kicker">03 · Leadership</p><h2 id="leadership-title">The platform<br>janitor.</h2></header>
@@ -135,8 +151,6 @@
           <ul class="plain-list"><li>AWS Certified Solutions Architect – Associate</li><li>AWS Certified Developer – Associate</li><li>HashiCorp Terraform Associate</li></ul>
           <h3>Education</h3>
           <ul class="plain-list"><li>MSc Advanced Computer Science, Leeds Beckett University</li><li>BSc Hydrology, University of Agriculture, Abeokuta</li></ul>
-          <h3>Now building</h3>
-          <p><a class="text-link" href="https://together-parenting.com/" target="_blank" rel="noopener noreferrer">Together Parenting ↗</a>, an app that keeps everyday family care connected.</p>
         </div>
       </div>
     </section>

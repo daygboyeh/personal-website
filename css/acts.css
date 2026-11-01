@@ -43,6 +43,16 @@
 .also li{color:var(--text-dim);padding-top:var(--s-4);border-top:1px solid var(--line)}
 .also strong{display:block;color:var(--text);margin-bottom:var(--s-1)}
 
+/* Now building: Together Parenting */
+.building-copy{max-width:600px}
+.building-copy>p:not(.kicker):not(.act-intro){color:var(--text-dim)}
+.product-card{display:flex;align-items:center;gap:var(--s-4);margin:var(--s-6) 0 var(--s-4);padding:var(--s-4);border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-raised);max-width:360px}
+.product-card img{width:64px;height:64px;border-radius:16px}
+.product-card strong{display:block;font-size:var(--t-lg)}
+.product-status{display:flex;align-items:center;gap:var(--s-2);font:500 var(--t-xs) var(--font-mono);color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em}
+.stack-chips{display:flex;flex-wrap:wrap;gap:var(--s-2);list-style:none;margin:0 0 var(--s-6);padding:0}
+.stack-chips li{padding:6px 12px;border:1px solid var(--line-strong);border-radius:999px;font:500 var(--t-xs) var(--font-mono);color:var(--text-dim)}
+
 /* Act 4 · Leadership */
 .lead-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--s-9)}
 .lead-quote{font-size:var(--t-xl);font-weight:500;letter-spacing:-.02em;line-height:1.35;color:var(--text);margin-bottom:var(--s-5)}

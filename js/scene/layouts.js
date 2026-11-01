@@ -6,7 +6,7 @@ export const PLATE_COUNT = 12;
 
 export const COLOURS = {
   cloud: 0x5b93ff, plat: 0x2fc78a, ops: 0xff8552, lead: 0xad86ff,
-  steel: 0xb9c0cc, alert: 0xff4d4d, signal: 0xffb43a
+  steel: 0xb9c0cc, alert: 0xff4d4d, signal: 0xffb43a, care: 0xff6fa8
 };
 const namespaces = [COLOURS.cloud, COLOURS.plat, COLOURS.ops, COLOURS.lead];
 
@@ -72,6 +72,13 @@ function throughput(time) {
   const records = Array.from({ length: 18 }, (_, index) => pod(-11 + ((index * 0.66 + time * 3.2) % 11.9), 0, 0.25, 0.34, 0.34, COLOURS.signal));
   return { pods: fill([pod(2.2, 0, 0, 2, 1.6, COLOURS.lead), ...records]), plates: [[2.2, 0, 3.2, 3.2], [-5, 0, 13, 1]] };
 }
+// Together Parenting: sleep, feeding and milestones, three small clusters around one shared place.
+function together() {
+  const corners = [[-3.2, -2, COLOURS.lead], [3.2, -2, COLOURS.cloud], [0, 3.4, COLOURS.plat]];
+  const pods = corners.flatMap(([cx, cy, colour], group) => Array.from({ length: 6 }, (_, index) => pod(cx - 0.6 + (index % 2) * 1.2, cy - 1.2 + Math.floor(index / 2) * 1.2, 0, 0.9, 0.5 + podNoise[group * 6 + index] * 0.9, colour)));
+  pods.push(pod(0, 0, 0, 1.8, 2.2, COLOURS.care));
+  return { pods: fill(pods), plates: [...corners.map(([cx, cy]) => [cx, cy, 2.8, 4]), [0, 0, 2.8, 2.8]] };
+}
 // A lead and two engineers.
 function lead() {
   const towers = [[0, -1.2, 7, COLOURS.lead], [-2.6, 1.4, 5, COLOURS.cloud], [2.6, 1.4, 5, COLOURS.plat]];
@@ -98,4 +105,4 @@ function hello() {
   return { pods: fill(pods), plates: [] };
 }
 
-export const layouts = { city, contain, packaged, migrate, heal, throughput, lead, career, hello };
+export const layouts = { city, contain, packaged, migrate, heal, throughput, together, lead, career, hello };

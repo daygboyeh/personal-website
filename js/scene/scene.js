@@ -15,6 +15,7 @@ const STOP_SPECS = [
   ['#proof .beat:nth-child(4)', 'heal', { dist: 22, elev: 0.7, yaw: -0.9, ty: 0.2 }, 1, 0.2, 'right'],
   ['#proof .beat:nth-child(5)', 'throughput', { dist: 24, elev: 0.5, yaw: -0.35, ty: 0.4 }, 1, 0.2, 'right'],
   ['#work', 'city', { dist: 36, elev: 0.8, yaw: -1.1, ty: 0 }, 0.18, 0.12, 'centre'],
+  ['#building', 'together', { dist: 24, elev: 0.62, yaw: -0.6, ty: 0.6 }, 1, 0.2, 'right'],
   ['#leadership', 'lead', { dist: 21, elev: 0.42, yaw: -0.8, ty: 2.8 }, 0.22, 0.14, 'centre'],
   ['#record', 'career', { dist: 19, elev: 0.38, yaw: -0.45, ty: 2.2 }, 0.22, 0.14, 'centre'],
   ['#contact', 'hello', { dist: 27, elev: 0.16, yaw: 0, ty: 2.1 }, 1, 0.5, 'right']
