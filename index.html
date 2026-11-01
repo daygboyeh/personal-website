@@ -9,10 +9,12 @@
   <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Adebiyi Adegboye — Platform Engineering Team Lead"><meta name="twitter:description" content="Cloud platforms, and the teams that run them. AWS, Azure, OpenShift and Kubernetes from London."><meta name="twitter:image" content="https://zealolu.com/assets/share-card.png">
   <title>Adebiyi Adegboye — Platform Engineering Team Lead</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/tokens.css?v=9"><link rel="stylesheet" href="css/layout.css?v=9"><link rel="stylesheet" href="css/acts.css?v=9">
-  <script type="module" src="js/main.js?v=9"></script>
+  <link rel="preload" href="fonts/inter-tight-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/tokens.css?v=10"><link rel="stylesheet" href="css/layout.css?v=10"><link rel="stylesheet" href="css/acts.css?v=10"><link rel="stylesheet" href="css/scene.css?v=10">
+  <script type="module" src="js/main.js?v=10"></script>
 </head>
 <body>
+  <div class="scene" aria-hidden="true"><canvas id="scene-canvas"></canvas></div>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <a href="#top" class="brand" aria-label="Adebiyi Adegboye, back to top"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 17.5L17.5 6.5"/><circle cx="6.5" cy="17.5" r="3.4"/><circle cx="17.5" cy="6.5" r="3.4"/></svg></span><span class="brand-name">Adebiyi <b>Adegboye</b></span></a>
@@ -25,6 +27,7 @@
       <a class="button button-small" href="#contact">Get in touch</a>
     </div>
   </header>
+  <div class="scene-hud" id="scene-hud" hidden><span class="hud-dot" aria-hidden="true"></span><span id="hud-ready">0/0 ready</span><span class="hud-uptime" id="hud-uptime">uptime 100.000%</span><button type="button" id="break-pod">Break a pod</button></div>
 
   <main id="main">
     <!-- Act 1 · Hero -->
@@ -32,6 +35,7 @@
       <p class="kicker"><span class="live-dot" aria-hidden="true"></span> Platform Engineering Team Lead · London</p>
       <h1 id="hero-title">Adebiyi<br>Adegboye</h1>
       <p class="hero-line">I build cloud platforms, and the teams that run them.</p>
+      <p class="hero-try" hidden>Click a pod to break it. It heals itself.</p>
       <p class="hero-meta">8+ years in cloud, DevOps and Kubernetes <span aria-hidden="true">·</span> AWS · Azure · OpenShift · Kubernetes</p>
       <div class="actions"><a class="button" href="#contact">Get in touch <span aria-hidden="true">→</span></a><a class="button button-ghost" href="assets/Adebiyi_Adegboye_CV.pdf?v=4" download>Download CV <span aria-hidden="true">↓</span></a></div>
     </section>
@@ -153,6 +157,7 @@
     <div class="terminal-output" id="terminal-output" aria-live="polite"><p>Type <strong>help</strong> to see what’s here. Some commands aren’t listed.</p></div>
     <form id="terminal-form"><label for="terminal-input">$</label><input id="terminal-input" autocomplete="off" spellcheck="false" maxlength="100"><button type="submit" aria-label="Run command">↵</button></form>
   </dialog>
+  <p class="sr-only" id="scene-status" role="status"></p>
   <div class="toast" id="toast" role="status"></div>
 </body>
 </html>
