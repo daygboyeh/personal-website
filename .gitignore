@@ -4,3 +4,7 @@ __pycache__/
 .venv/
 outputs/
 .openai/
+
+# Stageshow demos: build deps, and the kit's third-party logo artwork (not used, not shipped)
+demos/node_modules/
+demos/src/kit/brands/

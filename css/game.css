@@ -42,6 +42,12 @@
 .mission-inline{margin:0 0 var(--s-5)}
 .mission-inline .mission-log{min-height:0;margin:var(--s-3) 0 0}
 
+/* With the Stageshow demo loaded, it is the picture: no dashed plate around it, no DOM replay. */
+.mission-block.has-demo{padding:0;border:0;background:none}
+.has-demo .replay-row{display:none}
+.has-demo .mission-head{margin-bottom:var(--s-3)}
+.cutover-demo{margin-bottom:var(--s-4)}
+.cutover-demo:empty{display:none}
 .replay-row{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:var(--s-4)}
 .replay-clock{font:700 var(--t-xl) var(--font-mono);letter-spacing:-.02em;color:var(--text);font-variant-numeric:tabular-nums;min-width:6.5ch}
 .env-strip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(10,1fr);gap:6px}

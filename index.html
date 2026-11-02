@@ -10,8 +10,8 @@
   <title>Adebiyi Adegboye — Platform Engineering Team Lead</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/inter-tight-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/tokens.css?v=12"><link rel="stylesheet" href="css/layout.css?v=12"><link rel="stylesheet" href="css/acts.css?v=12"><link rel="stylesheet" href="css/scene.css?v=12"><link rel="stylesheet" href="css/game.css?v=12">
-  <script type="module" src="js/main.js?v=12"></script>
+  <link rel="stylesheet" href="css/tokens.css?v=12"><link rel="stylesheet" href="css/layout.css?v=12"><link rel="stylesheet" href="css/acts.css?v=12"><link rel="stylesheet" href="css/scene.css?v=12"><link rel="stylesheet" href="css/game.css?v=13">
+  <script type="module" src="js/main.js?v=13"></script>
 </head>
 <body>
   <div class="scene" aria-hidden="true"><canvas id="scene-canvas"></canvas></div>
@@ -74,6 +74,7 @@
         <dl class="case-facts"><div><dt>Services</dt><dd>19 core + 24 micro</dd></div><div><dt>Environments</dt><dd>10</dd></div><div><dt>Cutover</dt><dd>One weekend</dd></div><div><dt>Day one</dt><dd>No issues</dd></div></dl>
         <div class="mission-block game-only" id="cutover">
           <div class="mission-head"><span class="mission-tag">Mission · Run the cutover</span><span class="mission-note">Illustrative replay. The real runbook stays private.</span></div>
+          <div class="cutover-demo" id="cutover-demo" aria-hidden="true"></div>
           <div class="replay-row"><span class="replay-clock" id="cutover-clock">Fri 18:00</span><ol class="env-strip" id="env-strip" aria-label="0 of 10 environments on cloud"></ol></div>
           <p class="mission-log" id="cutover-log">Ten environments, one weekend. Ready when you are.</p>
           <button class="button button-small" type="button" id="cutover-run">Run the cutover <span aria-hidden="true">▶</span></button>

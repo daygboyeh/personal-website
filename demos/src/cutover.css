@@ -1,0 +1,283 @@
+/* The cutover dashboard. Dark, after dark-hero: depth from surface steps, one lit
+   colour (the success green) where environments land, the phase changing on one pill. */
+.cutover .ss-stage {
+  overflow: hidden;
+  background: transparent;
+  border-radius: 14px;
+}
+
+/* Corner bleed: inset top and left, off the right and the bottom */
+.co-win {
+  position: absolute;
+  top: 36px;
+  left: 36px;
+  width: 780px;
+  /* Runs well past the bottom: the stage crops the window, never shows its foot */
+  height: 470px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 0 0 1px rgb(255 255 255 / 0.07);
+}
+
+.cutover .ss-stage[data-layout='compact'] .co-win {
+  top: 16px;
+  left: 16px;
+  /* Well past the right edge (78px), so it reads as a bleed, not a near miss */
+  width: 420px;
+}
+
+.co-side {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 14px 10px;
+}
+
+.co-nav {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: var(--ss-radius-sm);
+}
+
+.co-nav[data-active] {
+  background: var(--ss-ink-1);
+}
+
+.co-body {
+  position: relative;
+  min-height: 420px;
+  /* Right padding keeps the last tile column one gutter (36px) inside the stage edge */
+  padding: 20px 92px 0 24px;
+  background: var(--ss-surface);
+}
+
+.cutover .ss-stage[data-layout='compact'] .co-body {
+  /* The right padding keeps every tile one gutter inside the stage edge */
+  padding: 18px 94px 0 16px;
+}
+
+.co-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.co-title {
+  color: var(--ss-text-strong);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.co-clock {
+  margin-left: auto;
+  padding: 3px 9px;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius-pill);
+  color: var(--ss-text);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.co-phase {
+  flex: none;
+}
+
+/* The status mark: spinner and dot in one 8px cell */
+.co-mark,
+.co-tile__mark {
+  display: grid;
+  place-items: center;
+  width: 8px;
+  height: 8px;
+  flex: none;
+}
+
+.co-tile__mark {
+  width: 10px;
+  height: 10px;
+}
+
+.co-mark > *,
+.co-tile__mark > * {
+  grid-area: 1 / 1;
+  transition: opacity 0.2s ease;
+}
+
+.co-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.co-mark:not([data-phase='migrating']) .ss-spinner,
+.co-mark[data-phase='migrating'] .co-dot,
+.co-tile__mark:not([data-state='syncing']) .ss-spinner,
+.co-tile__mark[data-state='syncing'] .co-dot {
+  opacity: 0;
+}
+
+.co-stats {
+  display: flex;
+  align-items: flex-end;
+  gap: 40px;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--ss-line-faint);
+}
+
+.co-stat {
+  display: grid;
+  gap: 8px;
+}
+
+.co-big {
+  display: flex;
+  align-items: baseline;
+  color: var(--ss-text-strong);
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+
+.co-of {
+  margin-left: 3px;
+  color: var(--ss-text-faint);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.co-mid {
+  color: var(--ss-text-strong);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+}
+
+.co-label {
+  color: var(--ss-text);
+  font-size: 12px;
+}
+
+.co-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.cutover .ss-stage[data-layout='compact'] .co-grid {
+  gap: 6px;
+}
+
+.co-tile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 12px;
+  border: 1px solid var(--ss-line-faint);
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-raised);
+  color: var(--ss-text-faint);
+  transition: border-color 0.35s ease, background-color 0.35s ease, color 0.35s ease;
+}
+
+.cutover .ss-stage[data-layout='compact'] .co-tile {
+  justify-content: center;
+  height: 36px;
+  padding: 0 6px;
+}
+
+/* On a phone a tile is its status mark: the lines would only crowd it */
+.cutover .ss-stage[data-layout='compact'] .co-tile__lines {
+  display: none;
+}
+
+.cutover .ss-stage[data-layout='compact'] .co-stats {
+  gap: 24px;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+/* A tighter header on the phone keeps the window at least as wide as it is tall */
+.cutover .ss-stage[data-layout='compact'] .co-head {
+  margin-bottom: 12px;
+}
+
+.cutover .ss-stage[data-layout='compact'] .co-big {
+  font-size: 28px;
+}
+
+.co-tile[data-state='syncing'] {
+  color: var(--ss-warning, #f5b544);
+}
+
+.co-tile[data-state='cloud'] {
+  border-color: rgb(47 199 138 / 0.45);
+  background: rgb(47 199 138 / 0.08);
+  color: var(--ss-success, #2fc78a);
+}
+
+.co-tile__lines {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.co-tile__lines .ss-bar {
+  max-width: 100%;
+}
+
+.co-toast-slot {
+  position: absolute;
+  left: 24px;
+  top: 290px;
+}
+
+.cutover .ss-stage[data-layout='compact'] .co-toast-slot {
+  left: 16px;
+  top: 220px;
+}
+
+.co-tick {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2fc78a;
+}
+
+/* Words stacked in one cell, crossfading: the clock has a fixed box, so it never
+   resizes; the phase cell eases its width from the right edge only. */
+.co-stack,
+.co-label-cell {
+  display: inline-grid;
+  justify-items: start;
+}
+
+.co-stack > span,
+.co-word {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.14s ease;
+}
+
+.co-stack > span[data-on],
+.co-word[data-on] {
+  opacity: 1;
+  transition: opacity 0.2s ease 0.12s;
+}
+
+.co-label-cell {
+  transition: width 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.co-label-cell[data-shrink] {
+  transition-delay: 0.1s;
+}

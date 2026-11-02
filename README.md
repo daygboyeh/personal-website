@@ -25,7 +25,8 @@ Every interaction belongs to one game. The visitor goes on call for the platform
 each act has one mission:
 1. **Break a pod** (hero): crash a pod and watch it heal.
 2. **Roll out the proof**: read all five proof beats.
-3. **Run the cutover** (Work): replay the weekend migration across 10 environments.
+3. **Run the cutover** (Work): replay the weekend migration across 10 environments,
+   shown as a Stageshow product demo (a cutover dashboard) with a plain DOM fallback.
 4. **Find the bottleneck** (Work): profile the data loader and tune the slow stage.
 5. **Bring it together** (Now building): merge the care clusters.
 
@@ -38,8 +39,10 @@ Progress is kept in this browser only (`ade-shift-v1`) and the page works withou
 
 ## Run locally
 From this directory, run:
-    python3 -m http.server 4173 --bind 127.0.0.1
-Then open http://127.0.0.1:4173.
+    python3 tools/serve.py 4173
+Then open http://127.0.0.1:4173. (`tools/serve.py` is Python's static server plus the
+`no-cache` rule from `_headers`; plain `python3 -m http.server` works too, but browsers
+may keep running stale ES modules after an edit.)
 
 This is a static website. It needs no package installation or build step.
 Bump the `?v=` query on stylesheet and script URLs in index.html when you deploy
@@ -61,6 +64,10 @@ each other without a query, so _headers asks browsers to revalidate them.
 - js/game/hud.js: the pager (status, mission list as navigation, rollout bar)
 - js/game/missions/: one module per mission, plus the handover report
 - css/game.css: pager, mission blocks and handover
+- demos/: authoring source for product demos built with the Stageshow kit (React,
+  Vite). Only needed to change a demo; see demos/README.md and demos/REHEARSAL.md
+- js/demos/: the built cutover demo (committed; lazy-loaded by the cutover mission)
+- tools/serve.py: local dev server with no-cache headers
 - vendor/three.module.min.js: three.js r160 (MIT), pinned and self-hosted
 - fonts/: Inter Tight and JetBrains Mono variable woff2, Latin subset (SIL OFL)
 - docs/rebuild-outline.md: the content outline, with a source for every claim
