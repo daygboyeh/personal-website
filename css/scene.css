@@ -1,0 +1,25 @@
+/* The fixed cluster scene behind every act, and its small status HUD. */
+.scene{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .6s ease}
+.scene canvas{width:100%;height:100%;display:block}
+/* A soft scrim keeps text on the left readable over the scene on wide screens. */
+@media(min-width:901px){.scene::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#0b0d12 0,#0b0d12d9 28%,#0b0d1200 52%)}}
+.scene-on .scene{background:radial-gradient(ellipse 55% 60% at 70% 55%,#18203099,transparent 70%)}
+main,.site-footer{position:relative;z-index:1}
+/* Acts become transparent so the scene shows through; panels keep their own backgrounds. */
+.scene-on .act + .act{border-top-color:transparent}
+.scene-on .case{background:linear-gradient(180deg,#12151cee,#0b0d12e6);backdrop-filter:blur(6px)}
+.scene-on .beats{max-width:min(560px,46%)}
+/* Each beat gets most of a screen, so its layout has time on stage. */
+.scene-on .beat{min-height:72svh;align-content:center}
+.scene-on .act-contact{max-width:var(--page)}
+.scene-on .act-contact>*{max-width:min(620px,50%)}
+.hero-try{font:500 var(--t-xs) var(--font-mono);color:var(--plat);margin-bottom:var(--s-3)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+
+@media(max-width:900px){.scene-on .beat{min-height:60svh}.scene-on .beats,.scene-on .act-contact>*{max-width:none}}
+@media(max-width:760px){
+  .scene-on .act-hero{justify-content:flex-end;padding-top:46svh}
+  .hero-try{display:none}
+}
+@media(prefers-reduced-motion:reduce){.scene{transition:none}}

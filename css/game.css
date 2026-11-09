@@ -1,0 +1,97 @@
+/* The on-call game: the pager HUD, mission blocks inside the acts, and the handover. */
+.game-only{display:none}
+.game-on .game-only{display:block}
+.text-button{background:none;border:0;padding:0;font:500 var(--t-xs) var(--font-mono);color:var(--text-faint);text-decoration:underline;text-underline-offset:3px}
+.text-button:hover{color:var(--text)}
+.hud-dot{width:8px;height:8px;border-radius:50%;background:var(--plat);box-shadow:0 0 10px var(--plat);flex-shrink:0}
+
+/* Pager */
+.pager{position:fixed;left:var(--s-4);bottom:var(--s-4);z-index:40;display:flex;flex-direction:column;align-items:flex-start;gap:var(--s-2);max-width:calc(100% - 32px)}
+.pager[hidden]{display:none}
+.pager-bar{display:flex;align-items:center;gap:var(--s-2);padding:5px;border:1px solid var(--line-strong);border-radius:999px;background:#0b0d12e6;backdrop-filter:blur(10px)}
+.pager-toggle{display:flex;align-items:center;gap:var(--s-3);padding:6px 10px;border:0;border-radius:999px;background:none;font:500 11px var(--font-mono);color:var(--text-dim)}
+.pager-toggle:hover{background:#ffffff0f;color:var(--text)}
+.pager-count{color:var(--text);font-weight:700}
+.pager-caret{transition:transform .2s}
+.pager-toggle[aria-expanded=true] .pager-caret{transform:rotate(180deg)}
+#break-pod{border:1px solid #ff4d4d66;border-radius:999px;background:#ff4d4d1a;color:#ffb0b0;padding:6px 12px;font:600 11px var(--font-mono);white-space:nowrap}
+#break-pod:hover{background:#ff4d4d33;color:#fff}
+.pager.pinged .pager-bar{animation:ping .7s ease-out}
+@keyframes ping{0%{box-shadow:0 0 0 0 #2fc78a99}100%{box-shadow:0 0 0 14px #2fc78a00}}
+.pager-panel{width:min(360px,calc(100vw - 32px));max-height:min(70vh,560px);overflow:auto;padding:var(--s-5);border:1px solid var(--line-strong);border-radius:var(--radius);background:#0d1016f2;backdrop-filter:blur(14px);box-shadow:0 24px 60px #000a}
+.pager-panel[hidden]{display:none}
+.pager-title{font:600 var(--t-xs) var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--signal);margin-bottom:var(--s-4)}
+.rollout{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--s-3);margin-bottom:var(--s-4);font:500 11px var(--font-mono);color:var(--text-dim)}
+.rollout-track,.gauge-track{height:6px;border-radius:6px;background:#ffffff14;overflow:hidden}
+#rollout-fill{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cloud),var(--plat));transition:width .5s}
+.mission-list{list-style:none;margin:0 0 var(--s-4);padding:0;display:grid;gap:var(--s-1)}
+.mission-list a{display:grid;grid-template-columns:28px 1fr;gap:var(--s-3);align-items:start;padding:var(--s-2);border-radius:10px;text-decoration:none}
+.mission-list a:hover{background:#ffffff0d}
+.mission-mark{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;border:1px solid var(--line-strong);font:600 11px var(--font-mono);color:var(--text-dim)}
+.mission-list .done .mission-mark{background:var(--plat);border-color:var(--plat);color:var(--bg)}
+.mission-list strong{display:block;font-size:var(--t-sm)}
+.mission-list small{display:block;font-size:var(--t-xs);color:var(--text-faint);line-height:1.4}
+.mission-list .done small{color:var(--plat)}
+
+/* Mission blocks inside the acts */
+.mission-block{margin:0 0 var(--s-7);padding:var(--s-5);border:1px dashed var(--line-strong);border-radius:var(--radius);background:#ffffff05}
+.mission-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s-2);margin-bottom:var(--s-4)}
+.mission-tag{font:600 var(--t-xs) var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--signal);margin:0}
+.mission-note{font:500 11px var(--font-mono);color:var(--text-faint)}
+.mission-log{font:500 var(--t-sm)/1.5 var(--font-mono);color:var(--text-dim);margin:var(--s-3) 0 var(--s-4);min-height:3em}
+.mission-inline{margin:0 0 var(--s-5)}
+.mission-inline .mission-log{min-height:0;margin:var(--s-3) 0 0}
+
+/* With the Stageshow demo loaded, it is the picture: no dashed plate around it, no DOM replay. */
+.mission-block.has-demo{padding:0;border:0;background:none}
+.has-demo .replay-row{display:none}
+.has-demo .mission-head{margin-bottom:var(--s-3)}
+.cutover-demo{margin-bottom:var(--s-4)}
+.cutover-demo:empty{display:none}
+.replay-row{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:var(--s-4)}
+.replay-clock{font:700 var(--t-xl) var(--font-mono);letter-spacing:-.02em;color:var(--text);font-variant-numeric:tabular-nums;min-width:6.5ch}
+.env-strip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
+.env-strip li{padding:8px 0;border-radius:6px;border:1px solid var(--line-strong);background:#b9c0cc1a;font:600 9px var(--font-mono);text-align:center;color:var(--text-faint);transition:background .4s,border-color .4s,color .4s}
+.env-strip li.moved{background:#5b93ff33;border-color:var(--cloud);color:var(--text)}
+
+.gauge{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:var(--s-3);margin-bottom:var(--s-4)}
+.gauge-label{font:500 11px var(--font-mono);color:var(--text-faint)}
+#loader-time{font:700 var(--t-lg) var(--font-mono);font-variant-numeric:tabular-nums}
+#loader-fill{display:block;height:100%;width:100%;background:var(--ops);transition:width 1.2s cubic-bezier(.2,.8,.2,1),background .6s}
+.profile-stages{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.profile-stages button{width:100%;display:grid;grid-template-columns:130px 1fr auto;align-items:center;gap:var(--s-3);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#ffffff06;text-align:left;font-size:var(--t-sm)}
+.profile-stages button:hover:not(:disabled){border-color:var(--text-dim)}
+.profile-stages button:disabled{cursor:default}
+.stage-bar{height:8px;border-radius:4px;background:#ffffff0d;overflow:hidden}
+.stage-bar span{display:block;height:100%;width:0;background:var(--ops);transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.profiled .stage-bar span{width:var(--share)}
+.stage-action{font:600 11px var(--font-mono);color:var(--text-faint)}
+.tuned .stage-action::after{content:' · no change'}
+.fixed button{border-color:var(--plat)}
+.fixed .stage-bar span{background:var(--plat);width:6%}
+.fixed .stage-action{color:var(--plat)}
+.fixed .stage-action::after{content:' · fixed'}
+
+.product-card{transition:box-shadow .5s,border-color .5s}
+.product-card.merged{border-color:#ff6fa8;box-shadow:0 0 0 4px #ff6fa81f}
+
+.handover{margin-top:var(--s-7);max-width:520px;padding:var(--s-5);border:1px solid var(--line-strong);border-radius:var(--radius);background:#0d1016e6}
+.handover-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-3);margin:var(--s-3) 0 0}
+.handover-stats dt{font:500 11px var(--font-mono);color:var(--text-faint)}
+.handover-stats dd{margin:0;font:700 var(--t-lg) var(--font-mono)}
+
+.pod-strip{display:flex;gap:6px;margin:0 0 var(--s-5)}
+.pod-strip[hidden]{display:none}
+.dom-pod{width:18px;height:18px;border-radius:5px;background:var(--plat);transition:background .3s,transform .3s}
+.dom-pod.down{background:#ff4d4d;transform:scaleY(.3)}
+
+@media(max-width:600px){
+  .pager{left:var(--s-3);right:var(--s-3);bottom:var(--s-3)}
+  .pager-budget{display:none}
+  .replay-row{grid-template-columns:1fr}
+  .env-strip{grid-template-columns:repeat(5,1fr)}
+  .profile-stages button{grid-template-columns:96px 1fr auto}
+  .handover-stats{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){.pager.pinged .pager-bar{animation:none}#rollout-fill,#loader-fill,.stage-bar span,.env-strip li,.dom-pod{transition:none}}
+.motion-paused #rollout-fill,.motion-paused #loader-fill,.motion-paused .stage-bar span,.motion-paused .env-strip li{transition:none}

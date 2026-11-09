@@ -1,0 +1,99 @@
+/* The five acts. Each act is a full-width band with the same rhythm: kicker, big
+   headline, then content in a measured column. Stage B layers the 3D scene behind them. */
+.act{position:relative;max-width:var(--page);margin:0 auto;padding:var(--s-10) var(--gutter)}
+.act + .act{border-top:1px solid var(--line)}
+.kicker{display:flex;align-items:center;gap:var(--s-3);margin:0 0 var(--s-5);font:600 var(--t-xs)/1.4 var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--signal)}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--plat);box-shadow:0 0 0 4px #2fc78a33}
+.act h2{font-size:var(--t-3xl)}
+.act-head{margin-bottom:var(--s-8)}
+.act-intro{max-width:var(--measure);margin-top:var(--s-5);font-size:var(--t-lg);color:var(--text-dim)}
+.plain-list{list-style:none;margin:0;padding:0}
+.plain-list li{padding:var(--s-3) 0;border-bottom:1px solid var(--line)}
+.plain-list li:last-child{border-bottom:0}
+
+/* Act 1 · Hero */
+.act-hero{min-height:calc(100svh - 68px);display:flex;flex-direction:column;justify-content:center;padding-block:var(--s-9)}
+.act-hero h1{font-size:var(--t-4xl);letter-spacing:-.055em;line-height:.88;margin-bottom:var(--s-6)}
+.hero-line{max-width:23ch;font-size:var(--t-2xl);font-weight:500;letter-spacing:-.025em;line-height:1.15;margin-bottom:var(--s-5)}
+.hero-meta{font:500 var(--t-sm) var(--font-mono);color:var(--text-dim);margin-bottom:var(--s-7)}
+
+/* Act 2 · Proof */
+.beats{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-4)}
+.beat{display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:var(--s-5);align-items:baseline;padding:var(--s-6) 0;border-top:1px solid var(--line)}
+.beat-num{grid-row:span 3;font:600 var(--t-sm) var(--font-mono);color:var(--ns)}
+.beat-stat{font-size:var(--t-4xl);font-weight:700;letter-spacing:-.06em;line-height:.85;color:var(--ns)}
+.beat h3{font-size:var(--t-2xl);margin-bottom:var(--s-3)}
+.beat p{max-width:var(--measure);color:var(--text-dim);margin:0}
+
+/* Act 3 · Work */
+.case{margin-bottom:var(--s-9);padding:var(--s-7);border:1px solid var(--line);border-radius:var(--radius-lg);background:linear-gradient(180deg,var(--bg-raised),var(--bg));border-top:3px solid var(--ns)}
+.case-tag{font:600 var(--t-xs) var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ns)}
+.case h3{font-size:var(--t-3xl);max-width:18ch;margin-bottom:var(--s-6)}
+.case-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--s-4);margin:0 0 var(--s-7);padding:var(--s-5) 0;border-block:1px solid var(--line)}
+.case-facts dt{font:600 var(--t-xs) var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:var(--s-1)}
+.case-facts dd{margin:0;font-size:var(--t-lg);font-weight:600}
+.case-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-6) var(--s-8)}
+.case-body section:nth-child(2){grid-row:span 2}
+.case-body h4{font:600 var(--t-xs) var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin-bottom:var(--s-3)}
+.case-body p,.case-body li{color:var(--text-dim)}
+.case-body ul{margin:0;padding:0;list-style:none;display:grid;gap:var(--s-4)}
+.case-body li strong{display:block;color:var(--text)}
+.also h3{font-size:var(--t-xl);margin-bottom:var(--s-5)}
+.also ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-5) var(--s-7)}
+.also li{color:var(--text-dim);padding-top:var(--s-4);border-top:1px solid var(--line)}
+.also strong{display:block;color:var(--text);margin-bottom:var(--s-1)}
+
+/* Now building: Together Parenting */
+.building-copy{max-width:600px}
+.building-copy>p:not(.kicker):not(.act-intro){color:var(--text-dim)}
+.product-card{display:flex;align-items:center;gap:var(--s-4);margin:var(--s-6) 0 var(--s-4);padding:var(--s-4);border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-raised);max-width:360px}
+.product-card img{width:64px;height:64px;border-radius:16px}
+.product-card strong{display:block;font-size:var(--t-lg)}
+.product-status{display:flex;align-items:center;gap:var(--s-2);font:500 var(--t-xs) var(--font-mono);color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em}
+.stack-chips{display:flex;flex-wrap:wrap;gap:var(--s-2);list-style:none;margin:0 0 var(--s-6);padding:0}
+.stack-chips li{padding:6px 12px;border:1px solid var(--line-strong);border-radius:999px;font:500 var(--t-xs) var(--font-mono);color:var(--text-dim)}
+
+/* Act 4 · Leadership */
+.lead-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--s-9)}
+.lead-quote{font-size:var(--t-xl);font-weight:500;letter-spacing:-.02em;line-height:1.35;color:var(--text);margin-bottom:var(--s-5)}
+.lead-voice>p:not(.lead-quote),.done{color:var(--text-dim)}
+.act-leadership h3{font:600 var(--t-xs) var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin:var(--s-7) 0 var(--s-3)}
+.lead-rules h3:first-child{margin-top:0}
+.plain-list li{color:var(--text-dim)}
+.rules{margin:0;padding:0;list-style:none;counter-reset:rule}
+.rules li{counter-increment:rule;position:relative;padding:var(--s-4) 0 var(--s-4) 40px;border-bottom:1px solid var(--line);color:var(--text-dim)}
+.rules li::before{content:counter(rule,decimal-leading-zero);position:absolute;left:0;top:calc(var(--s-4) + 4px);font:600 var(--t-xs) var(--font-mono);color:var(--lead)}
+.rules strong{display:block;color:var(--text)}
+.big-quote{margin:var(--s-9) 0 0;padding-left:var(--s-6);border-left:3px solid var(--signal)}
+.big-quote p{max-width:28ch;font-size:var(--t-2xl);font-weight:600;letter-spacing:-.03em;line-height:1.15;margin:0}
+
+/* Act 5 · Record and contact */
+.record-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:var(--s-9)}
+.timeline{list-style:none;margin:0;padding:0}
+.timeline li{position:relative;padding:0 0 var(--s-6) var(--s-6);border-left:1px solid var(--line-strong)}
+.timeline li::before{content:'';position:absolute;left:-6px;top:4px;width:11px;height:11px;border-radius:3px;background:var(--bg);border:2px solid var(--plat)}
+.timeline li:first-child::before{background:var(--plat)}
+.when{font:600 var(--t-xs) var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-faint);margin-bottom:var(--s-2)}
+.timeline h3{font-size:var(--t-xl);margin-bottom:var(--s-1)}
+.where{color:var(--plat);font-weight:500;margin-bottom:var(--s-2)}
+.timeline p:last-child{color:var(--text-dim);margin:0}
+.credentials h3{font:600 var(--t-xs) var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin:var(--s-6) 0 var(--s-2)}
+.credentials h3:first-child{margin-top:0}
+.credentials p{color:var(--text-dim)}
+.act-contact{padding-block:var(--s-10)}
+.act-contact h2{font-size:var(--t-4xl);letter-spacing:-.055em;line-height:.9;margin-bottom:var(--s-5)}
+.act-contact .act-intro{margin-bottom:var(--s-7)}
+.contact-links{display:flex;flex-wrap:wrap;gap:var(--s-5);list-style:none;margin:var(--s-7) 0 0;padding:0;font:500 var(--t-sm) var(--font-mono)}
+.contact-links a{color:var(--text-dim);text-decoration:none}
+.contact-links a:hover{color:var(--text)}
+
+@media(max-width:900px){
+  .lead-grid,.record-grid,.case-body,.also ul{grid-template-columns:1fr;gap:var(--s-7)}
+  .case-body section:nth-child(2){grid-row:auto}
+  .case{padding:var(--s-6) var(--s-5)}
+}
+@media(max-width:600px){
+  .act{padding-block:var(--s-9)}
+  .beat{grid-template-columns:1fr}.beat-num{grid-row:auto;margin-bottom:var(--s-2)}
+  .act-contact .button{white-space:normal;word-break:break-all}
+}
